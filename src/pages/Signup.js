@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { withAuth } from '../providers/AuthProvider';
 
 class Signup extends Component {
-
+  
   state = {
     username: "",
     password: "",

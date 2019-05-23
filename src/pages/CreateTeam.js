@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import userService from './../lib/users-service';
 import growthModelService from './../lib/growthModel-service';
+import teamsService from './../lib/teams-service';
 
 
 export default class CreateTeam extends Component {
@@ -11,6 +12,7 @@ export default class CreateTeam extends Component {
       name: '',
       members: [],
       growthModel: '',
+      growthModelName: '',
       listOfUsers:[],
       listOfGrowthModel:[],
       currentAddedMember: '',
@@ -19,104 +21,90 @@ export default class CreateTeam extends Component {
   }
 
   handleChange = (event) => {  
-    console.log(event.target)
     const {name, value} = event.target;
     this.setState({[name]: value});
+    console.log('state', this.state)
   }
 
-  // displayNames = () =>{
-  //   this.state.members.map( (userId) => {
-  //     console.log(userId)
-  //     userService.getOne(userId)
-  //       .then((user)=>{
-  //         console.log(user)
-  //         console.log('user.data.firstName', user.data.firstName)
-  //         return(
-  //           <p>{user.data.firstName}</p>
-  //         )
-  //       })
-  //   })
-  // }
-
-  // fetchName = () =>{
-  //   this.state.members.map((userId)=>{
-  //     userService.getOne(userId)
-  //       .then((user)=>{
-  //         const membersNameCopy = this.state.membersName;
-  //         membersNameCopy.push(user.data[0]._id)
-  //         this.setState({
-  //           members: membersCopy,
-  //           currentAddedMember: ''
-  //         })
-  //       })
-  //   })
-  // }
+  handleChangeGrowthModel = (event) => {  
+    const {value} = event.target;
+    growthModelService.getOneByName(value)
+      .then((OneGrowthModel)=>{
+        this.setState({growthModel: OneGrowthModel._id});
+      })
+    this.setState({growthModelName: value});
+  }
 
   addMember = (event) =>{
     event.preventDefault()
     const {value} = event.target;
     console.log(value)
+    console.log('listOfUsers1',this.state.listOfUsers)
     userService.getOneByEmail(value)
       .then((user)=>{
         const membersCopy = this.state.members;
         const membersNameCopy = this.state.membersName;
+        const listOfUsersCopy = this.state.listOfUsers;
+        console.log('listOfUsersCopy', listOfUsersCopy)
+
+        listOfUsersCopy.forEach((userObj, index) => {
+          console.log('userObj.id',userObj._id)
+          console.log('user.data[0]._id',user.data[0]._id)
+          if(userObj._id === user.data[0]._id) {
+            listOfUsersCopy.splice(index, 1);
+          }
+        })
         membersCopy.push(user.data[0]._id)
         membersNameCopy.push(`${user.data[0].firstName}`)
+
         this.setState({
           members: membersCopy,
           membersName: membersNameCopy,
-          currentAddedMember: ''
+          currentAddedMember: '',
+          listOfUsers: listOfUsersCopy
         })
-        console.log(this.state.members)
-        console.log(this.state.membersName)
+        console.log('listOfUsers2',this.state.listOfUsers)
+
       })
   }
 
-  // displayNames2 = () =>{
-  //   const memberPromises = this.state.members.map( (userId => {
-  //     console.log(userId)
-  //     return userService.getOne(userId)
-  //       .then((user)=>{
-  //         console.log(user)
-  //         console.log('user.data.firstName', user.data.firstName)
-  //         return(
-  //           <div key={user.data._id}>
-  //             <p>{user.data.firstName}</p>
-  //           </div>
-  //         )
-  //       })
-      
-  //   }))
+  deleteTaskById (id)  {
+    const taskListCopy = [...this.state.tasks];
+    let tasksCompleted = this.state.tasksCompleted;
+
+    taskListCopy.forEach((taskObj, index) => {
+      if(taskObj.id === id) {
+        taskListCopy.splice(index, 1);
+        tasksCompleted--;
+      }
+    })
+    this.setState( {tasks: taskListCopy, tasksCompleted} );
+  };
 
 
-  // Promise.all(memberPromises)
-  //   .then((membersArray) => {
-  //     this.setState({ members: membersArray})
-  //   })
-  // }
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-    this.props.addTheMovie(this.state);
-    // Reset the state
-    this.setState({ title: '', director: '', hasOscars: false, IMDbRating: '' });  	
-  };
+    const {name, members, growthModel } = this.state;
+    teamsService.createTeam({name, members, growthModel})
+
+  }
 
   componentDidMount() {
     //  fetch the data from API befor initial render
     userService.getAll()
       .then((users)=>{
-        console.log(users)
         this.setState({ listOfUsers: users.data })
       })  
       growthModelService.getAll()
       .then((growthModels)=>{
         this.setState({ listOfGrowthModel: growthModels.data })
+        console.log(this.state)
       })  
   }
 
   render() {
-    const {name, members, membersName, growthModel, listOfUsers, listOfGrowthModel, currentAddedMember} = this.state
+    const {name, membersName, growthModelName, listOfUsers, listOfGrowthModel, currentAddedMember} = this.state
 
     return (
       <div>
@@ -130,7 +118,7 @@ export default class CreateTeam extends Component {
           })
         }
 
-        <p>Growth Model: {growthModel}</p>
+        <p>Growth Model: {growthModelName}</p>
 
         <form onSubmit={this.handleFormSubmit}>
           <label>Team name:</label>
@@ -151,7 +139,7 @@ export default class CreateTeam extends Component {
           <br/>
 
           <label>Growth Model:</label>
-          <input list='growthModels' type="text" name='growthModel' onChange={this.handleChange}/>
+          <input list='growthModels' type="text" name='growthModel' onChange={this.handleChangeGrowthModel}/>
           <datalist id="growthModels">
           { 
             listOfGrowthModel.map( (growthModel) => {
