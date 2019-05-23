@@ -16,6 +16,7 @@ class Profile extends Component {
         <img src={photoUrl} alt="me"/>
         <br/>
         <Link to='/add-model'>Add new growth Model</Link>
+        <br/>
         <Link to='/create-team'>Create a new team</Link>
         {/* <CurrentGrowthCompassCard /> */}
         {/* <TeamCard /> */}
