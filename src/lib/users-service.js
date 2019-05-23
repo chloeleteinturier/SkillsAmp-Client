@@ -14,7 +14,12 @@ class UsersService {
   }
 
   getOne =(id) =>{
-    return this.auth.get(`/user/:${id}`)
+    return this.auth.get(`/user/${id}`)
+    .then((data)=> data )
+  }
+
+  getOneByEmail = (email) =>{
+    return this.auth.get(`/user/email/${email}`)
     .then((data)=> data )
   }
 
