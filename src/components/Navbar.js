@@ -7,7 +7,7 @@ class Navbar extends Component {
     const { isLogged, user, logout } = this.props;
     const { firstName } = user;
     if (isLogged) {
-      return <div>
+      return <div style={{ backgroundColor: 'grey'}}>
         <p>First name: { firstName }</p>
         <p onClick={logout}>Logout</p>
       </div>
