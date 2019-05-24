@@ -23,7 +23,7 @@ export default class CreateTeam extends Component {
   handleChange = (event) => {  
     const {name, value} = event.target;
     this.setState({[name]: value});
-    console.log('state', this.state)
+    // console.log('state', this.state)
   }
 
   handleChangeGrowthModel = (event) => {  
@@ -35,51 +35,104 @@ export default class CreateTeam extends Component {
     this.setState({growthModelName: value});
   }
 
+  updateState = (user) =>{
+    const membersCopy = this.state.members;
+    const membersNameCopy = this.state.membersName;
+    const listOfUsersCopy = this.state.listOfUsers;
+    // console.log('listOfUsersCopy', listOfUsersCopy)
+
+    listOfUsersCopy.forEach((userObj, index) => {
+      // console.log('userObj.id',userObj._id)
+      // console.log('user.data[0]._id',user.data[0]._id)
+      if(userObj._id === user.data[0]._id) {
+        listOfUsersCopy.splice(index, 1);
+      }
+    })
+    membersCopy.push(user.data[0]._id)
+    membersNameCopy.push(`${user.data[0].firstName}`)
+    console.log('user.data[0]',user.data[0])
+    this.setState({
+      members: membersCopy,
+      membersName: membersNameCopy,
+      currentAddedMember: '',
+      listOfUsers: listOfUsersCopy
+    })
+    // console.log('listOfUsers2',this.state.listOfUsers)
+  }
+
   addMember = (event) =>{
     event.preventDefault()
     const {value} = event.target;
-    console.log(value)
-    console.log('listOfUsers1',this.state.listOfUsers)
+    const {members} = this.state
+    // console.log(value)
+    // console.log('listOfUsers1',this.state.listOfUsers)
     userService.getOneByEmail(value)
       .then((user)=>{
-        const membersCopy = this.state.members;
-        const membersNameCopy = this.state.membersName;
-        const listOfUsersCopy = this.state.listOfUsers;
-        console.log('listOfUsersCopy', listOfUsersCopy)
 
-        listOfUsersCopy.forEach((userObj, index) => {
-          console.log('userObj.id',userObj._id)
-          console.log('user.data[0]._id',user.data[0]._id)
-          if(userObj._id === user.data[0]._id) {
-            listOfUsersCopy.splice(index, 1);
-          }
-        })
-        membersCopy.push(user.data[0]._id)
-        membersNameCopy.push(`${user.data[0].firstName}`)
-
-        this.setState({
-          members: membersCopy,
-          membersName: membersNameCopy,
-          currentAddedMember: '',
-          listOfUsers: listOfUsersCopy
-        })
-        console.log('listOfUsers2',this.state.listOfUsers)
+        console.log(members)
+        let exists = false;
+        if(members.length){
+            members.forEach((memberId)=>{
+              if(memberId === user.data[0]._id){
+                return exists = true
+              } 
+            })
+            if (!exists) {
+              this.updateState(user)
+            }
+        } else {
+          this.updateState(user)
+        }
 
       })
   }
 
-  deleteTaskById (id)  {
-    const taskListCopy = [...this.state.tasks];
-    let tasksCompleted = this.state.tasksCompleted;
 
-    taskListCopy.forEach((taskObj, index) => {
-      if(taskObj.id === id) {
-        taskListCopy.splice(index, 1);
-        tasksCompleted--;
-      }
-    })
-    this.setState( {tasks: taskListCopy, tasksCompleted} );
-  };
+  // addMember = (event) =>{
+  //   event.preventDefault()
+  //   const {value} = event.target;
+  //   // console.log(value)
+  //   // console.log('listOfUsers1',this.state.listOfUsers)
+  //   userService.getOneByEmail(value)
+  //     .then((user)=>{
+  //       const membersCopy = this.state.members;
+  //       const membersNameCopy = this.state.membersName;
+  //       const listOfUsersCopy = this.state.listOfUsers;
+  //       // console.log('listOfUsersCopy', listOfUsersCopy)
+
+  //       listOfUsersCopy.forEach((userObj, index) => {
+  //         // console.log('userObj.id',userObj._id)
+  //         // console.log('user.data[0]._id',user.data[0]._id)
+  //         if(userObj._id === user.data[0]._id) {
+  //           listOfUsersCopy.splice(index, 1);
+  //         }
+  //       })
+  //       membersCopy.push(user.data[0]._id)
+  //       membersNameCopy.push(`${user.data[0].firstName}`)
+
+  //       this.setState({
+  //         members: membersCopy,
+  //         membersName: membersNameCopy,
+  //         currentAddedMember: '',
+  //         listOfUsers: listOfUsersCopy
+  //       })
+  //       // console.log('listOfUsers2',this.state.listOfUsers)
+
+  //     })
+  // }
+
+  // deleteTaskById (id)  {
+  //   const taskListCopy = [...this.state.tasks];
+  //   let tasksCompleted = this.state.tasksCompleted;
+
+  //   taskListCopy.forEach((taskObj, index) => {
+  //     if(taskObj.id === id) {
+  //       taskListCopy.splice(index, 1);
+  //       tasksCompleted--;
+  //     }
+  //   })
+  //   this.setState( {tasks: taskListCopy, tasksCompleted} );
+  // };
 
 
 
@@ -99,12 +152,14 @@ export default class CreateTeam extends Component {
       growthModelService.getAll()
       .then((growthModels)=>{
         this.setState({ listOfGrowthModel: growthModels.data })
-        console.log(this.state)
+        // console.log(this.state)
       })  
   }
 
   render() {
     const {name, membersName, growthModelName, listOfUsers, listOfGrowthModel, currentAddedMember} = this.state
+
+    // console.log(listOfUsers)
 
     return (
       <div>
