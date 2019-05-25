@@ -60,8 +60,7 @@ class Profile extends Component {
     const { user } = this.state
     console.log(this.props)
     console.log(user.team)
-    console.log(this.state.user)
-    console.log('this.props.team', this.props.user.team)
+
     return (
       <div>
         <Navbar/>
@@ -75,7 +74,7 @@ class Profile extends Component {
 
         {
          user.team ?
-         <TeamCard team={this.props.user.team}/>
+         <TeamCard team={user.team}/>
          :
          null
         }
