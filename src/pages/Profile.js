@@ -3,7 +3,7 @@ import { withAuth } from '../providers/AuthProvider';
 import { Link } from 'react-router-dom';
 
 import userService from './../lib/users-service';
-
+import Navbar from './../components/Navbar'
 
 // import CurrentGrowthCompassCard from './../components/profile/CurrentGrowthCompassCard'
 import TeamCard from './../components/profile/TeamCard'
@@ -64,6 +64,8 @@ class Profile extends Component {
     console.log('this.props.team', this.props.user.team)
     return (
       <div>
+        <Navbar/>
+      <Link to='/'><h1>SkillsAmp</h1></Link>
         <h1>Welcome {user.firstName}</h1>
         <img src={user.photoUrl} alt="me"/>
         <br/>

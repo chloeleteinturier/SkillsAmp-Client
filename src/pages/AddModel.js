@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
+
 
 export default class AddModel extends Component {
   
@@ -27,6 +29,8 @@ export default class AddModel extends Component {
 
     return (
       <div>
+      <Link to='/'><h1>SkillsAmp</h1></Link>
+
         <h3>Create new growth Model</h3>
         <form>
           <label>Name:</label>
