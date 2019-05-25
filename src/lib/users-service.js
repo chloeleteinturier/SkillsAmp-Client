@@ -23,6 +23,11 @@ class UsersService {
     .then((data)=> data )
   }
 
+  updateOne = (id, teamId ) =>{
+    return this.auth.put(`/user/${id}`, {team: teamId})
+    .then((data)=> data )
+  }
+
 }
 
 const userService = new UsersService();
