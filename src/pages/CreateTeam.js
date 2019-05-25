@@ -106,6 +106,8 @@ export default class CreateTeam extends Component {
         })
         this.props.history.push('/profile');
       })
+      .catch( error => console.log(error) )
+
   }
 
   componentDidMount() {
