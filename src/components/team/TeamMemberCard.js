@@ -4,7 +4,7 @@ import userService from './../../lib/users-service';
 
 
 
-export default class TeamCard extends Component {
+export default class TeamMemberCard extends Component {
   constructor(props){
     super(props);
     this.state={
@@ -12,7 +12,7 @@ export default class TeamCard extends Component {
     }
   }
 
-  fetchMembers = () =>{
+  fetchCheckpoints = () =>{
     this.props.team.members.map((memberId)=>{
       return userService.getOne(memberId)
         .then((data)=>{
@@ -24,7 +24,7 @@ export default class TeamCard extends Component {
   }
 
   componentDidMount(){
-    this.fetchMembers()
+    this.fetchCheckpoints()
   }
 
   render() {
