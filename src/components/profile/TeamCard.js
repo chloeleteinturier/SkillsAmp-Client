@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 
-import userService from './../../lib/users-service';
+
+// import userService from './../../lib/users-service';
 import teamsService from './../../lib/teams-service';
 
 
@@ -53,7 +55,9 @@ export default class TeamCard extends Component {
     this.displayName()
     return (
       <div>
-      <h1>My Team: {team.name}</h1>
+        <Link to={`/myTeam/${this.props.team}`}>
+          <h1>My Team: {team.name}</h1>
+        </Link>
       {/* {
         this.displayName()
       } */}
