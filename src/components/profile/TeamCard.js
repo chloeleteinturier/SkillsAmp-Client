@@ -30,9 +30,7 @@ export default class TeamCard extends Component {
 
   render() {
     const {team} = this.props
-    console.log(team)
     const {membersData} = this.state
-    console.log(membersData)
     return (
       <div>
         <Link to={`/myTeam/${team._id}`}>
@@ -41,7 +39,7 @@ export default class TeamCard extends Component {
         {
           membersData.map((oneMember)=>{
             return (
-              <div>
+              <div key={oneMember._id}>
                 <img src={oneMember.photoUrl} alt={oneMember.firstName}/>
                 <p>{oneMember.firstName} {oneMember.lastName}</p>
               </div>
