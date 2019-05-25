@@ -15,7 +15,7 @@ class UsersService {
 
   getOne =(id) =>{
     return this.auth.get(`/user/${id}`)
-    .then((data)=> data )
+    .then((data)=> data.data )
   }
 
   getOneByEmail = (email) =>{

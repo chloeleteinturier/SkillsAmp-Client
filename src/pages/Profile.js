@@ -50,7 +50,7 @@ class Profile extends Component {
     const {user} = this.props
     userService.getOne(user._id)
       .then((user)=>{
-        this.setState({ user: user.data })
+        this.setState({ user: user })
       })  
     console.log(this.state.user)
   }

@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import AddModel from './pages/AddModel';
 import CreateTeam from './pages/CreateTeam';
+import MyTeam from './pages/MyTeam';
 
 
 import AuthProvider from './providers/AuthProvider';
@@ -30,6 +31,7 @@ class App extends Component {
             <PrivateRoute exact path="/profile" component={Profile} />
             <PrivateRoute path='/add-model' component={AddModel} />
             <PrivateRoute path='/create-team' component={CreateTeam} />
+            <PrivateRoute path='/myTeam/:id' component={MyTeam} />
           </Switch>
         </div>
       </AuthProvider>
