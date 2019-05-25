@@ -37,7 +37,7 @@ class Login extends Component {
     return (
       <div className="cover-container text-center">
         <header className="landing-header p-4">
-          <img src={largeLogo} alt="Skillsamp" />
+          <Link to='/'><img src={largeLogo} alt="Skillsamp" /></Link>
         </header>
         <main className="signin">
           <form className="needs-validation" onSubmit={this.handleFormSubmit} noValidate>

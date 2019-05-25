@@ -15,6 +15,7 @@ import CreateTeam from './pages/CreateTeam';
 import MyTeam from './pages/MyTeam';
 
 
+
 import AuthProvider from './providers/AuthProvider';
 
 
@@ -23,10 +24,8 @@ class App extends Component {
     return (
       <AuthProvider>
         <div>
-          
-            {/* <Navbar /> */}
-            <AnonRoute exact path='/' component={LandingPage} />
           <Switch>
+            <AnonRoute exact path='/' component={LandingPage} />
             <AnonRoute path="/signup" component={Signup} />
             <AnonRoute path="/login" component={Login} />
             <PrivateRoute exact path="/profile" component={Profile} />
