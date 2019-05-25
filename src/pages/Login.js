@@ -3,7 +3,7 @@ import { withAuth } from '../providers/AuthProvider';
 import { Link } from 'react-router-dom';
 
 
-import formService from './../lib/form-Service.js';
+import formService from './../lib/form-service.js';
 
 import largeLogo from "./../assets/logo_skillsamp_L.png"
 

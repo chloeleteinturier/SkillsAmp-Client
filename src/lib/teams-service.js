@@ -10,13 +10,18 @@ class TeamsService {
 
   getOne =(id) =>{
     return this.auth.get(`/team/${id}`)
-    .then((data)=> data )
+    .then((data)=> data.data )
   }
 
   createTeam(team){
     const { name, members, growthModel, checkpoints } = team;
     return this.auth.post('/team', {name, members, growthModel, checkpoints})
       .then(({ data }) => data);
+  }
+
+  updateOne = (id, checkpointsId ) =>{
+    return this.auth.put(`/team/${id}`, {checkpoints: checkpointsId})
+    .then((data)=> data )
   }
 
 }
