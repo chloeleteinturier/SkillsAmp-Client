@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import {Switch, Link} from 'react-router-dom'
+import {Switch} from 'react-router-dom'
 
 import PrivateRoute from './components/PrivateRoute';
 import AnonRoute from './components/AnonRoute';
 
 import LandingPage from './components/LandingPage';
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
@@ -21,9 +22,9 @@ class App extends Component {
   render() {
     return (
       <AuthProvider>
-        <div className="container">
-          <Link to='/'><h1>SkillsAmp</h1></Link>
-            <Navbar />
+        <div>
+          
+            {/* <Navbar /> */}
             <AnonRoute exact path='/' component={LandingPage} />
           <Switch>
             <AnonRoute path="/signup" component={Signup} />
@@ -33,6 +34,7 @@ class App extends Component {
             <PrivateRoute path='/create-team' component={CreateTeam} />
             <PrivateRoute path='/myTeam/:id' component={MyTeam} />
           </Switch>
+          <Footer />
         </div>
       </AuthProvider>
     )

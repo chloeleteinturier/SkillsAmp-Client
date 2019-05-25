@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 
 import teamsService from './../lib/teams-service';
 import userService from './../lib/users-service';
@@ -44,8 +45,7 @@ export default class MyTeam extends Component {
           this.updateState(member)
         })
     })
-  }
-  
+  } 
 
   componentDidMount() {
     const { id } = this.props.match.params;
@@ -56,7 +56,6 @@ export default class MyTeam extends Component {
         this.findMembers()
       })
       .catch((err) => console.log(err));
-      
   }
 
   render() {
@@ -66,14 +65,13 @@ export default class MyTeam extends Component {
 
     return (
       <div>
+      <Link to='/'><h1>SkillsAmp</h1></Link>
+
         <p>My team: {this.state.name}</p>
         {
           membersFirstName.map((memberFirstName, index) => {
-            return(
-              <TeamMemberCard key={index} firstName={memberFirstName} surname={membersSurname[index]} photo={membersPhoto[index]}   />
-            )
+            return <TeamMemberCard key={index} firstName={memberFirstName} surname={membersSurname[index]} photo={membersPhoto[index]} />
           })
-
         }
         
       </div>

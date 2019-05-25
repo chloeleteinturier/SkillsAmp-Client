@@ -1,0 +1,212 @@
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 45px; /* Margin bottom by footer height */
+  font-family: 'Nunito Light', sans-serif;
+  font-size: 16px;
+  color: #212122;
+}
+
+h1, h2 {
+  font-family: 'Nunito';
+}
+
+/* links */
+
+a {
+  color: #009598;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #004C4E;
+}
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 45px; /* Set the fixed height of the footer here */
+  line-height: 45px; /* Vertically center the text there */
+  background-color: #F0F0F0;
+}
+
+.footer .text-muted {
+  font-size: 14px;
+}
+
+
+/* Forms
+-------------------------------------------------- */
+
+/* buttons */
+
+.btn {
+  transition: 0.3s;
+  text-decoration: none !important;
+}
+
+.btn:hover {
+  opacity: 0.8;
+  transform: scale(1.05,1.05);
+  text-decoration: none !important;
+}
+
+.btn:active {
+  opacity: 1;
+}
+
+.btn:focus {
+  box-shadow: 0 0 0 0.1rem rgb(202, 202, 202) !important;  
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle  {
+color: #fff;
+background-color: #009598;
+border: .05rem solid #fff;
+}
+
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active,
+.show > .btn-secondary.dropdown-toggle  {
+color: #009598;
+background-color: #fff;
+border: .05rem solid #009598;
+}
+
+.btn-primary-inverse,
+.btn-primary-inverse:hover,
+.btn-primary-inverse:focus,
+.btn-primary-inverse:not(:disabled):not(.disabled):active, .btn-primary-inverse:not(:disabled):not(.disabled).active,
+.show > .btn-primary-inverse.dropdown-toggle {
+  color: #009598;
+  background-color: #fff;
+  border: .05rem solid #009598;
+}
+
+.btn-secondary-inverse,
+.btn-secondary-inverse:hover,
+.btn-secondary-inverse:focus,
+.btn-secondary-inverse:not(:disabled):not(.disabled):active, .btn-secondary-inverse:not(:disabled):not(.disabled).active,
+.show > .btn-secondary-inverse.dropdown-toggle {
+  color: #fff;
+  background-color: #009598;
+  border: .05rem solid #fff;
+}
+
+/* input */
+
+.form-control:focus {
+  border-color: #009598;
+  box-shadow: none;
+}
+
+/* Float label
+-------------------------------------------------- */
+
+.has-float-label {
+display: block;
+position: relative
+}
+
+.has-float-label label,
+.has-float-label>span {
+position: absolute;
+cursor: text;
+font-size: 75%;
+opacity: 1;
+-webkit-transition: all .2s;
+transition: all .2s;
+top: -.5em;
+left: .75rem;
+z-index: 3;
+line-height: 1;
+padding: 0 1px
+}
+
+.has-float-label label::after,
+.has-float-label>span::after {
+content: " ";
+display: block;
+position: absolute;
+background: #fff;
+height: 2px;
+top: 50%;
+left: -.2em;
+right: -.2em;
+z-index: -1
+}
+
+.has-float-label .form-control::-webkit-input-placeholder {
+opacity: 1;
+-webkit-transition: all .2s;
+transition: all .2s
+}
+
+.has-float-label .form-control:placeholder-shown:not(:focus)::-webkit-input-placeholder {
+opacity: 0
+}
+
+.has-float-label .form-control:placeholder-shown:not(:focus)+* {
+font-size: 100%;
+opacity: .5;
+top: .7em
+}
+
+.input-group .has-float-label {
+display: table-cell
+}
+
+.input-group .has-float-label .form-control {
+border-radius: .25rem
+}
+
+
+
+
+/* Pages
+-------------------------------------------------- */
+
+/* landing page */
+
+.landing-info {
+  color: #fff;
+  background-color: #009598;
+}
+
+/* sign in */
+
+.signin {
+  width: 320px;
+  margin: 0 auto;
+}
+
+.upload-photo {
+  margin-bottom: 15px;
+}
+
+.upload-photo input:hover {
+  cursor: pointer;
+}
+
+.upload-photo label{
+  text-align: left;
+}
+
+.upload-photo label i{
+  color: #009598;
+  font-size: 1.2em;
+  margin-right: 5px;
+}

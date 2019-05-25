@@ -14,8 +14,8 @@ class TeamsService {
   }
 
   createTeam(team){
-    const { name, members, growthModel } = team;
-    return this.auth.post('/team', {name, members, growthModel})
+    const { name, members, growthModel, checkpoints } = team;
+    return this.auth.post('/team', {name, members, growthModel, checkpoints})
       .then(({ data }) => data);
   }
 

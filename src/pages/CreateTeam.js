@@ -19,6 +19,7 @@ export default class CreateTeam extends Component {
       listOfGrowthModel:[],
       currentAddedMember: '',
       membersName: [],
+      checkpoints: [],
     };
   }
 
@@ -57,7 +58,7 @@ export default class CreateTeam extends Component {
       members: membersCopy,
       membersName: membersNameCopy,
       currentAddedMember: '',
-      listOfUsers: listOfUsersCopy
+      listOfUsers: listOfUsersCopy,
     })
     // console.log('listOfUsers2',this.state.listOfUsers)
   }
@@ -90,12 +91,14 @@ export default class CreateTeam extends Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-    const {name, members, growthModel } = this.state;
-    teamsService.createTeam({name, members, growthModel})
+    const {name, members, growthModel, checkpoints } = this.state;
+    teamsService.createTeam({name, members, growthModel, checkpoints})
       .then((data)=>{
-        console.log('new Team:', data.members)
+        console.log('new Team members:', data.members)
+        console.log('new Team:', data)
         data.members.forEach((memberId)=>{
           const team = data._id
+          console.log(memberId)
           userService.updateOne(memberId, team )
             .then((result)=>{
             console.log(result)
@@ -124,6 +127,8 @@ export default class CreateTeam extends Component {
 
     return (
       <div>
+      <Link to='/'><h1>SkillsAmp</h1></Link>
+
         <p>Team: {name}</p>
         <p>Members:</p>
         {
