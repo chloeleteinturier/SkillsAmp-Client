@@ -2,22 +2,15 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 
 
-import checkpointService from './../../lib/checkpoint-service';
-
-
-
 export default class CheckpointCard extends Component {
   constructor(props){
     super(props);
     this.state={
-      checkpointsData:[]
     }
   }
 
   getTheDate= (checkpointDate) =>{
     let betterDate = new Date(JSON.parse(`"${checkpointDate}"`))
-
-
     const day = String(betterDate.getDay());
     let dayString;
 
@@ -58,29 +51,13 @@ export default class CheckpointCard extends Component {
     )
   }
 
-  fetchCheckpoint = () =>{
-    this.props.team.checkpoints.map((checkpointId)=>{
-      return checkpointService.getOne(checkpointId)
-        .then((data)=>{
-          const checkpointsDataCopy = this.state.checkpointsData
-          checkpointsDataCopy.push(data)
-          this.setState({membersData:checkpointsDataCopy})
-        })
-    })
-  }
-
-  componentDidMount(){
-    this.fetchCheckpoint()
-  }
-
   render() {
-    const {checkpointsData} = this.state
-    console.log('checkpointsData',checkpointsData)
-    console.log('this.props.match.params', this.props.team._id)
+    const {team} = this.props
+    console.log(' this.props.team',team)
     return (
       <div>
         {
-          checkpointsData.map((oneCheckpoint)=>{
+          team.checkpoints.map((oneCheckpoint)=>{
             return (
               <Link to={`/myTeam/${this.props.team._id}/checkpoint/${oneCheckpoint._id}`} key={oneCheckpoint._id} team={this.props.team} checkpoint={oneCheckpoint}>
                 {

@@ -23,12 +23,6 @@ class Signup extends Component {
     message:''
   };
 
-  checkEmailFree = () =>{
-    const email = this.state.email;
-    userService.getOneByEmail(email)
-      .then((user)=> user)
-  }
-
   handleFormSubmit = (event) => {
     event.preventDefault();
     const password = this.state.password;
