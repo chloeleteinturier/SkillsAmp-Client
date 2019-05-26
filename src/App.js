@@ -13,6 +13,7 @@ import Profile from './pages/Profile';
 import AddModel from './pages/AddModel';
 import CreateTeam from './pages/CreateTeam';
 import MyTeam from './pages/MyTeam';
+import Checkpoint from './pages/Checkpoint';
 
 
 
@@ -31,7 +32,8 @@ class App extends Component {
             <PrivateRoute exact path="/profile" component={Profile} />
             <PrivateRoute path='/add-model' component={AddModel} />
             <PrivateRoute path='/create-team' component={CreateTeam} />
-            <PrivateRoute path='/myTeam/:id' component={MyTeam} />
+            <PrivateRoute exact path='/myTeam/:id' component={MyTeam} />
+            <PrivateRoute path='/myTeam/:id/checkpoint/:id' component={Checkpoint} />
           </Switch>
           <Footer />
         </div>

@@ -82,7 +82,6 @@ class Profile extends Component {
 
         
         {/* <CurrentGrowthCompassCard /> */}
-        {/* <TeamCard /> */}
         {/* <TaskCard /> */}
         {/* <EvolutionCard /> */}
       </div>

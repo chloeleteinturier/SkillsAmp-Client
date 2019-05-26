@@ -97,14 +97,14 @@ export default class CreateTeam extends Component {
         console.log('new Team members:', data.members)
         console.log('new Team:', data)
         data.members.forEach((memberId)=>{
-          const team = data._id
+          const teamId = data._id
           console.log(memberId)
-          userService.updateOne(memberId, team )
+          userService.updateOne(memberId, teamId )
             .then((result)=>{
             console.log(result)
             })
-        })
-        this.props.history.push('/profile');
+            this.props.history.push('/profile');
+        });
       })
       .catch( error => console.log(error) )
 
