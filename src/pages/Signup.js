@@ -4,6 +4,7 @@ import { withAuth } from '../providers/AuthProvider';
 
 
 import formService from './../lib/form-service.js';
+import userService from './../lib/users-service';
 
 
 
@@ -19,7 +20,14 @@ class Signup extends Component {
     lastName: '',
     email: '',
     photoUrl: '',
+    message:''
   };
+
+  checkEmailFree = () =>{
+    const email = this.state.email;
+    userService.getOneByEmail(email)
+      .then((user)=> user)
+  }
 
   handleFormSubmit = (event) => {
     event.preventDefault();
@@ -29,10 +37,19 @@ class Signup extends Component {
     const email = this.state.email;
     const photoUrl = this.state.photoUrl;
 
-    console.log(this.state)
-      this.props.signup({password, firstName, lastName, email, photoUrl })
-      .then(() => {})
-      .catch( error => console.log(error) )
+    userService.getOneByEmail(email)
+    .then((user)=>{
+      if(user.data.length){
+        console.log(user.data)
+        this.setState({message: 'email already exists'})
+      } else {
+        console.log(this.state)
+          this.props.signup({password, firstName, lastName, email, photoUrl })
+          .then(() => {})
+          .catch( error => console.log(error) )
+      }
+    })
+    
     }
   
 
@@ -40,7 +57,7 @@ class Signup extends Component {
     event.preventDefault()
     console.log(this.state)
     const {name, value} = event.target;
-    this.setState({[name]: value});
+    this.setState({[name]: value, message:''});
   }
 
   componentDidMount() {
@@ -60,6 +77,12 @@ class Signup extends Component {
           <form className="needs-validation" onSubmit={this.handleFormSubmit} noValidate>
             <legend>Sign up with you email</legend>
             <p>or <Link to="/login" className="btn btn-secondary btn-sm ml-2 mr-2">Log in</Link>if you already have an account</p>
+            {
+              this.state.message.length ?
+              <p style={{color: 'red'}}>{this.state.message}</p>
+              :
+              null
+            }
             <div className="form-group">
               <span className="has-float-label">
                 <input className="form-control" id="firstname" type="text" placeholder="Arya" name='firstName' value={firstName} onChange={(event)=>this.handleChange(event)} required />                           
