@@ -16,7 +16,8 @@ export default class MyTeam extends Component {
       name: '',
       members: [],
       growthModel: '',
-      checkpoints: []
+      checkpoints: [],
+      assessments:[],
     }
   }
 
@@ -24,16 +25,41 @@ export default class MyTeam extends Component {
     const { id } = this.props.match.params;
     teamsService.getOne(id)
       .then( (team) =>{
+        console.log('team', team)
         this.setState(team);
       })
       .catch((err) => console.log(err));
   }
 
+  createAssessments = (membersID) => {
+    let evaluator;
+    let evaluated;
+    const {growthModel} = this.state
+    const growthCompass = growthModel;
+    const assessments = membersID.flatMap((torMemberId)=>{
+      evaluator = torMemberId
+      return membersID.map((tedMemberId)=>{
+        evaluated = tedMemberId
+        return {evaluator, evaluated, growthCompass:growthCompass }
+      })
+    })
+    console.log(assessments)
+
+
+    return assessments;
+  }
+
   handleCheckpointCreation = (event) => {
     event.preventDefault();
-    const {checkpoints, _id} = this.state;
+    const {checkpoints, _id, members} = this.state;
     console.log(event)
-    checkpointService.createCheckpoint()
+
+    const assess = this.createAssessments(members)
+    console.log(assess)
+    this.setState({assessments: assess})
+    console.log('this.state', this.state)
+    
+    checkpointService.createCheckpoint(assess)
       .then((data)=>{
         console.log('new checkpoint:', data)
         checkpoints.unshift(data._id)
@@ -46,7 +72,7 @@ export default class MyTeam extends Component {
         this.props.history.push(`/myTeam/${_id}/checkpoint/${data._id}`);
       })
       .catch( error => console.log(error) )
-           
+      
   }
 
   render() {

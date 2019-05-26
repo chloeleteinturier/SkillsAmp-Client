@@ -23,11 +23,11 @@ class CheckpointService {
     .then((data)=> data )
   }
 
-  createCheckpoint(){
+  createCheckpoint(assessments){
     const date = new Date();
     const currentCheckpoint = true;
 
-    return this.auth.post('/checkpoint', {date, currentCheckpoint})
+    return this.auth.post('/checkpoint', {date, currentCheckpoint, assessments})
       .then(({ data }) => data);
   }
 }
