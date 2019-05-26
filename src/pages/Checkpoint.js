@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { withAuth } from '../providers/AuthProvider';
+import { Link } from 'react-router-dom';
+
 
 import teamsService from './../lib/teams-service';
 import checkpointService from './../lib/checkpoint-service';
@@ -64,6 +66,7 @@ class Checkpoint extends Component {
 
     return (
       <div>
+        <Link to='/'><h1>SkillsAmp</h1></Link>
         <h2>Team: {team.name}</h2>
 
         {
