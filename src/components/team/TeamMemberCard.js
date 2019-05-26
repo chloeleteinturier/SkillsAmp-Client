@@ -12,7 +12,7 @@ export default class TeamMemberCard extends Component {
     }
   }
 
-  fetchCheckpoints = () =>{
+  fetchMembers = () =>{
     this.props.team.members.map((memberId)=>{
       return userService.getOne(memberId)
         .then((data)=>{
@@ -24,7 +24,7 @@ export default class TeamMemberCard extends Component {
   }
 
   componentDidMount(){
-    this.fetchCheckpoints()
+    this.fetchMembers()
   }
 
   render() {

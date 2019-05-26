@@ -5,6 +5,10 @@ import teamsService from './../lib/teams-service';
 import checkpointService from './../lib/checkpoint-service';
 import userService from './../lib/users-service';
 
+import CheckpointInfoCard from './../components/checkpoint/CheckpointInfoCard'
+
+
+
 
 class Checkpoint extends Component {
   constructor(props){
@@ -53,9 +57,23 @@ class Checkpoint extends Component {
     console.log('this.props.user.team', this.props.user.team)
     console.log('this.props.match.params', this.props.match.params)
     console.log('this.state',this.state)
+    const {team, assessments} = this.state
+    console.log('team', team)
+    console.log('team.members', team.members)
+    console.log('assessments', assessments)
+
     return (
       <div>
-        <p>holaaaaa</p>
+        <h2>Team: {team.name}</h2>
+
+        {
+        team.members ?
+        <CheckpointInfoCard assessments={assessments} members={team.members}/>
+        :
+        null
+        }
+
+
       </div>
     )
   }
