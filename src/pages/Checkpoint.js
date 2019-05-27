@@ -24,8 +24,8 @@ class Checkpoint extends Component {
   }
 
   fetchCurrentCheckpoint = () =>{
-    const { id } = this.props.match.params;
-    checkpointService.getOne(id)
+    const { checkpointId } = this.props.match.params;
+    checkpointService.getOne(checkpointId)
       .then( (checkpoint) =>{
         this.setState(checkpoint);
       })
@@ -61,6 +61,7 @@ class Checkpoint extends Component {
     console.log('this.props.match.params', this.props.match.params)
     console.log('this.state',this.state)
     const {team, assessments} = this.state
+    const {checkpointId, teamId} = this.props.match.params
     console.log('team', team)
     console.log('team.members', team.members)
     console.log('assessments', assessments)
@@ -72,7 +73,7 @@ class Checkpoint extends Component {
 
         {
         team.members ?
-        <CheckpointInfoCard assessments={assessments} members={team.members} me={this.props.user}/>
+        <CheckpointInfoCard assessments={assessments} members={team.members} me={this.props.user} teamId={teamId} checkpointId={checkpointId}/>
         :
         null
         }

@@ -68,7 +68,7 @@ export default class MyTeam extends Component {
         teamsService.updateOne(_id, checkpoints )
           .then((result)=>{
           console.log(result)
-          })
+        })
         this.props.history.push(`/myTeam/${_id}/checkpoint/${data._id}`);
       })
       .catch( error => console.log(error) )

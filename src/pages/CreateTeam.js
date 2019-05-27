@@ -102,8 +102,8 @@ export default class CreateTeam extends Component {
           userService.updateOne(memberId, teamId )
             .then((result)=>{
             console.log(result)
-            })
             this.props.history.push('/profile');
+            })
         });
       })
       .catch( error => console.log(error) )

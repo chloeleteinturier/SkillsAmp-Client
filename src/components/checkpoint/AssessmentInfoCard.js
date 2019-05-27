@@ -13,7 +13,7 @@ class AssessmentCard extends Component {
   }
 
   render() {
-    const {currentMember, assessments, membersData, user } = this.props
+    const {currentMember, assessments, membersData, user, checkpointId, teamId } = this.props
     console.log('me', user)
     console.log('this.props', this.props)
     console.log(this.state)
@@ -31,7 +31,7 @@ class AssessmentCard extends Component {
               })
               if(currentMember === user._id){
                 return (
-                <Link to='#/' key={assessment._id}>
+                <Link to={`/myTeam/${teamId}/checkpoint/${checkpointId}/assessment/${assessment._id}`} key={assessment._id}>
                   <p>Member to evaluate: {memberEvaluated.firstName} {memberEvaluated.lastName}</p>
                   <p>{assessmentGrowthCompass.name}</p>
                 </Link>
