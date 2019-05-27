@@ -1,7 +1,7 @@
 class FormService {
 
   loadFormAnimations(){
-    var forms = document.getElementsByClassName('needs-validation');
+    const forms = document.getElementsByClassName('needs-validation');
     // Loop over them and prevent submission
     Array.prototype.filter.call(forms, function(form) {
         form.addEventListener('submit', function(event) {

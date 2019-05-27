@@ -57,16 +57,26 @@ export default class CheckpointCard extends Component {
     return (
       <div>
         {
-          team.checkpoints.map((oneCheckpoint)=>{
-            return (
-              <Link to={`/myTeam/${this.props.team._id}/checkpoint/${oneCheckpoint._id}`} key={oneCheckpoint._id} team={this.props.team} checkpoint={oneCheckpoint}>
-                {
-                  this.getTheDate(oneCheckpoint.date)
-                }
-                <p>{(oneCheckpoint.currentCheckpoint).toString()} </p>
-              </Link>
-            )
-          })
+          team.checkpoints ?
+            team.checkpoints.map((oneCheckpoint)=>{
+              return (
+                <Link to={`/myTeam/${this.props.team._id}/checkpoint/${oneCheckpoint._id}`} key={oneCheckpoint._id} team={this.props.team} checkpoint={oneCheckpoint}>
+                  {
+                    <div>
+                      {this.getTheDate(oneCheckpoint.date)}
+                      {
+                        oneCheckpoint.currentCheckpoint ?
+                        <p>true</p>
+                        :
+                        <p>false</p>
+                      }
+                    </div>
+                  }
+                </Link>
+              )
+            })
+            :
+            null
         }
       </div>
     )

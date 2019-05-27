@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import userService from './../../lib/users-service'
-import AssessmentCard from './AssessmentCard'
+import AssessmentInfoCard from './AssessmentInfoCard'
 
 export default class CheckpointInfoCard extends Component {
   constructor(props){
@@ -59,7 +59,8 @@ export default class CheckpointInfoCard extends Component {
 
   render() {
     const {membersData} = this.state
-    const {assessments} = this.props
+    const {assessments, checkpointId, teamId} = this.props
+    console.log('this.props', this.props)
     console.log('this.props.assessments', this.props.assessments)
     console.log('membersData', membersData)
     return (
@@ -71,7 +72,7 @@ export default class CheckpointInfoCard extends Component {
               <div key={oneMember._id}>
                 <img src={oneMember.photoUrl} alt={oneMember.firstName}/>
                 <p>{oneMember.firstName} {oneMember.lastName}</p>
-                <AssessmentCard currentMember={oneMember._id} assessments={assessments} membersData={membersData}/>
+                <AssessmentInfoCard currentMember={oneMember._id} assessments={assessments} membersData={membersData} teamId={teamId} checkpointId={checkpointId}/>
               </div>
 
             )

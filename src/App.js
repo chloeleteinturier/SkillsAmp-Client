@@ -14,6 +14,7 @@ import AddModel from './pages/AddModel';
 import CreateTeam from './pages/CreateTeam';
 import MyTeam from './pages/MyTeam';
 import Checkpoint from './pages/Checkpoint';
+import Assessment from './pages/Assessment';
 
 
 
@@ -33,7 +34,8 @@ class App extends Component {
             <PrivateRoute path='/add-model' component={AddModel} />
             <PrivateRoute path='/create-team' component={CreateTeam} />
             <PrivateRoute exact path='/myTeam/:id' component={MyTeam} />
-            <PrivateRoute path='/myTeam/:id/checkpoint/:id' component={Checkpoint} />
+            <PrivateRoute exact path='/myTeam/:teamId/checkpoint/:checkpointId' component={Checkpoint} />
+            <PrivateRoute path='/myTeam/:teamId/checkpoint/:checkpointId/assessment/:assessmentId' component={Assessment} />
           </Switch>
           <Footer />
         </div>
