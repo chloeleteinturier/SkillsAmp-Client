@@ -56,6 +56,7 @@ class Checkpoint extends Component {
 
   render() {
     console.log('this.props', this.props)
+    console.log(this.props.user)
     console.log('this.props.user.team', this.props.user.team)
     console.log('this.props.match.params', this.props.match.params)
     console.log('this.state',this.state)
@@ -67,11 +68,11 @@ class Checkpoint extends Component {
     return (
       <div>
         <Link to='/'><h1>SkillsAmp</h1></Link>
-        <h2>Team: {team.name}</h2>
+        <Link to={`/myteam/${team._id}`}><h2>Team: {team.name}</h2></Link>
 
         {
         team.members ?
-        <CheckpointInfoCard assessments={assessments} members={team.members}/>
+        <CheckpointInfoCard assessments={assessments} members={team.members} me={this.props.user}/>
         :
         null
         }
