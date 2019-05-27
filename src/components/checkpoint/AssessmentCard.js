@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 
-export default class AssessmentCard extends Component {
+import { withAuth } from './../../providers/AuthProvider';
+
+
+class AssessmentCard extends Component {
   constructor(props){
     super(props)
     this.state={
@@ -9,7 +13,8 @@ export default class AssessmentCard extends Component {
   }
 
   render() {
-    const {currentMember, assessments, membersData } = this.props
+    const {currentMember, assessments, membersData, user } = this.props
+    console.log('me', user)
     console.log('this.props', this.props)
     console.log(this.state)
     return (
@@ -24,12 +29,23 @@ export default class AssessmentCard extends Component {
                   return memberEvaluated = member
                 }
               })
+              if(currentMember === user._id){
+                return (
+                <Link to='#/' key={assessment._id}>
+                  <p>Member to evaluate: {memberEvaluated.firstName} {memberEvaluated.lastName}</p>
+                  <p>{assessmentGrowthCompass.name}</p>
+                </Link>
+              )
+
+              }else{
+
               return (
                 <div key={assessment._id}>
                   <p>Member to evaluate: {memberEvaluated.firstName} {memberEvaluated.lastName}</p>
                   <p>{assessmentGrowthCompass.name}</p>
                 </div>
               )
+              }
             } else{
               return null
             }
@@ -40,3 +56,5 @@ export default class AssessmentCard extends Component {
     )
   }
 }
+
+export default withAuth(AssessmentCard);
