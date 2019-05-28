@@ -1,14 +1,18 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
 
+import { withAuth } from './../providers/AuthProvider';
+
+import userService from './../lib/users-service';
 import teamsService from './../lib/teams-service';
 import checkpointService from './../lib/checkpoint-service';
 
+import Navbar from './../components/Navbar'
 import TeamMemberCard from './../components/team/TeamMemberCard'
 import CheckpointCard from './../components/team/CheckpointCard'
 
 
-export default class MyTeam extends Component {
+
+class MyTeam extends Component {
   constructor(props){
     super(props);
     this.state= {
@@ -18,17 +22,25 @@ export default class MyTeam extends Component {
       growthModel: '',
       checkpoints: [],
       assessments:[],
+      user: {}
     }
   }
 
   componentDidMount() {
     const { id } = this.props.match.params;
+    const {user} = this.props
+
     teamsService.getOne(id)
       .then( (team) =>{
         console.log('team', team)
         this.setState(team);
       })
       .catch((err) => console.log(err));
+
+    userService.getOne(user._id)
+      .then((oneUser)=>{
+        this.setState({ user: oneUser })
+      })
   }
 
   createAssessments = (membersID) => {
@@ -76,7 +88,7 @@ export default class MyTeam extends Component {
   }
 
   render() {
-    const {name, members, checkpoints} = this.state
+    const {name, members, checkpoints, user} = this.state
     console.log('this.state.', this.state)
     console.log('members', members)
     console.log('members.length', members.length)
@@ -85,26 +97,34 @@ export default class MyTeam extends Component {
     console.log(checkpoints.length)
 
     return (
-      <div>
-      <Link to='/'><h1>SkillsAmp</h1></Link>
+    <div className="container-fluid content">
+      <div className="row">
+        <Navbar theUser={user} />
 
-        <p>My team: {name}</p>
-        {
-          members.length ?
-          <TeamMemberCard team={this.state}/>
-          :
-          null
-        }
-        {
-          checkpoints.length ?
-          <CheckpointCard team={this.state}/>
-          :
-          null
-        }
+        <div className="col- col-sm- col-md- col-lg-10 col-xl- mainview pt-3 pb-3">
+          <h1 className="h4 text-center mt-4 mb-4">My team: <strong className="font-weight-bold">{name}</strong></h1>
+          {
+            members.length ?
+            <TeamMemberCard team={this.state}/>
+            :
+            null
+          }
+          {
+            checkpoints.length ?
+            <CheckpointCard team={this.state}/>
+            :
+            null
+          }
 
-        <button type="submit" onClick={(event)=>this.handleCheckpointCreation(event)} >Create new checkpoint</button>
-        
+          <button onClick={(event)=>this.handleCheckpointCreation(event)}>Create new Checkpoint</button>
+
+        </div>
+      
+
       </div>
+    </div>
     )
   }
 }
+
+export default withAuth(MyTeam)
