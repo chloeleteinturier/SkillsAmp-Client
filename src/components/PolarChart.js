@@ -1,8 +1,8 @@
 import React from "react";
-import { Polar } from "react-chartjs-2";
+import { Polar, Chart } from "react-chartjs-2";
 // import { MDBContainer } from "mdbreact";
 
-class ChartsPage extends React.Component {
+class PolarChart extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -11,14 +11,24 @@ class ChartsPage extends React.Component {
           {
             data: [...this.props.data],
             backgroundColor: [
-              'red': '#F64B00',
-              'orange': '#F49F00',
-              'yellow': '#00B15A',
-              'green': '#009598',
-              'teal': '#0058A5',
-              'blue': '#620794',
-              'purple': '#CA0027',
-              'darkred': '#EA0000'
+              Chart.helpers.color('#F64B00').alpha(0.7).rgbString(),
+              Chart.helpers.color('#F49F00').alpha(0.7).rgbString(),
+              Chart.helpers.color('#00B15A').alpha(0.7).rgbString(),
+              Chart.helpers.color('#009598').alpha(0.7).rgbString(),
+              Chart.helpers.color('#0058A5').alpha(0.7).rgbString(),
+              Chart.helpers.color('#620794').alpha(0.7).rgbString(),
+              Chart.helpers.color('#CA0027').alpha(0.7).rgbString(),
+              Chart.helpers.color('#EA0000').alpha(0.7).rgbString(),
+            ],
+            hoverBackgroundColor: [
+              '#F64B00',
+              '#F49F00',
+              '#00B15A',
+              '#009598',
+              '#0058A5',
+              '#620794',
+              '#CA0027',
+              '#EA0000'
             ],
           }
         ],
@@ -31,15 +41,29 @@ class ChartsPage extends React.Component {
 				},
 				scale: {
 					ticks: {
-						beginAtZero: true
+						beginAtZero: true,
+          	min: 0,
+						max: 4,
+						suggestedMin: 0,
+						suggestedMax: 4,
+						stepSize: 1
+					},
+					pointLabels: {
+						fontSize: 14,
+						fontColor: '#212121',
+            fontFamily: 'Nunito',
+						display: true,
 					},
 					reverse: false
 				},
 				animation: {
 					animateRotate: true,
 					animateScale: true
-				}
-			}
+				},
+				
+      },
+    data:this.props.data,
+    labels:this.props.labels
     }
   }
 
@@ -56,14 +80,15 @@ class ChartsPage extends React.Component {
   // }
 
   render() {
-    console.log(this.props.data)
+    console.log('data', this.props.data)
+    console.log('labels', this.props.labels)
+    console.log(this.state.dataPolar)
     return (
       <div>
-        <h3 className="mt-5">Polar area chart</h3>
         <Polar data={this.state.dataPolar} options={this.state.options} />
       </div>
     );
   }
 }
 
-export default ChartsPage;
+export default PolarChart;

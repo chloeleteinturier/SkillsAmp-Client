@@ -4,14 +4,13 @@ export default class AssessmentCard extends Component {
   constructor(props){
     super(props);
     this.state={
-      theGrowthCompass: this.props.growthCompass
+      theGrowthCompass: this.props.growthCompass,
     }
   }
 
   displayIndicators = () =>{
     const {growthCompass} = this.props
     growthCompass.indicators.map((oneIndicator)=>{
-      console.log(oneIndicator)
       return (
         <div key={oneIndicator._id}>
           <p>{oneIndicator.name}</p>
@@ -22,13 +21,15 @@ export default class AssessmentCard extends Component {
   }
 
   handleChange = (event) => {
-    const {name, value} = event.target;
+    const {name, value, id} = event.target;
     const {theGrowthCompass} = this.state
-    console.log('name', name)
-    console.log('value', value)
+    console.log('event.target.id', event.target.id)
+    console.log('event.target', event.target)
+    console.log('event', event)
+    console.log('event.target', event.target)
     let newIndicators = theGrowthCompass.indicators.map((indicator) => {
       if(indicator._id === name){
-        indicator.assessedLevel = value
+        indicator.assessedLevel = parseFloat(value)
         return indicator
       } else {
         return indicator
@@ -36,13 +37,12 @@ export default class AssessmentCard extends Component {
     })
     const theGrowthCompassCopy = theGrowthCompass
     theGrowthCompassCopy.indicators = newIndicators
-
-    console.log(newIndicators)
     this.setState( {theGrowthCompass: theGrowthCompassCopy} );
+    this.props.updateTheData(id, value)
   }
 
   handleFormSubmit = (event) => {
-    console.log(event)
+    // console.log(event)
     event.preventDefault();
     const {theGrowthCompass} = this.state
     this.props.updateTheAssessment(theGrowthCompass); 	
@@ -51,29 +51,26 @@ export default class AssessmentCard extends Component {
   render() {
     const {growthCompass} = this.props
     const {theGrowthCompass} = this.state
-    console.log('this.props', this.props)
-    console.log('growthCompass', growthCompass)
-    console.log('this.state.theGrowthCompass', theGrowthCompass)
     return (
-      <div>
-        <h3>{growthCompass.name}</h3>
-        {
-          growthCompass.indicators.map((oneIndicator)=>{
-            console.log(oneIndicator)
-            return (
-              <div key={oneIndicator._id}>
-                <p>{oneIndicator.name}: {oneIndicator.assessedLevel}</p>
+      <div className="container container-block pt-4 pb-4">
+        <form className="needs-validation center-form assessment-form">
 
-                <form>
-                  <input type="number" name={oneIndicator._id} min="0" max="5" step="0.5" value={oneIndicator.assessedLevel} onChange={(event)=>this.handleChange(event)}/>
-                </form>
+        {/* <h3>{growthCompass.name}</h3> */}
+        {
+          growthCompass.indicators.map((oneIndicator, index)=>{
+            return (
+              <div className="form-group">
+                <label htmlFor="formControlRange">{oneIndicator.name}: <span className="font-weight-bold assessment-rate">{oneIndicator.assessedLevel}</span></label>
+                <input type="range" className="form-control-range" id={index} name={oneIndicator._id}  min="0" max="4" step="0.1" value={oneIndicator.assessedLevel} onChange={(event)=>this.handleChange(event)}/>                                                       
               </div>
             )
           })
         }
 
-        <button onClick={(event)=>this.handleFormSubmit(event)} >Send the assessment</button>
+          <button className="btn btn-block btn-primary btn-lg" type="submit" onClick={(event)=>this.handleFormSubmit(event)}>Save assessment</button>
+        </form>
       </div>
     )
   }
 }
+

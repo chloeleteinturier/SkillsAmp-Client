@@ -109,6 +109,7 @@ class MyTeam extends Component {
             :
             null
           }
+          <button className='btn btn-primary ml-auto mr-auto d-block mb-3' onClick={(event)=>this.handleCheckpointCreation(event)}>Create new Checkpoint</button>
           {
             checkpoints.length ?
             <CheckpointCard team={this.state}/>
@@ -116,7 +117,6 @@ class MyTeam extends Component {
             null
           }
 
-          <button onClick={(event)=>this.handleCheckpointCreation(event)}>Create new Checkpoint</button>
 
         </div>
       

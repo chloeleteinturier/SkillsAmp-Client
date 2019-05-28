@@ -18,8 +18,8 @@ class CheckpointService {
     .then((data)=> data.data )
   }
 
-  updateOne = (id, teamId ) =>{
-    return this.auth.put(`/checkpoint/${id}`)
+  updateOne = (id, checkpoint ) =>{
+    return this.auth.put(`/checkpoint/${id}`, checkpoint)
     .then((data)=> data )
   }
 

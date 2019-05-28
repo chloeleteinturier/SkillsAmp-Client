@@ -14,37 +14,35 @@ class AssessmentCard extends Component {
 
   render() {
     const {currentMember, assessments, membersData, user, checkpointId, teamId } = this.props
-    console.log('me', user)
     console.log('this.props', this.props)
-    console.log(this.state)
     return (
       <div>
         {
           assessments.map((assessment)=>{
-            if(assessment.evaluator === currentMember){
-              let assessmentGrowthCompass = assessment.growthCompass
-              let memberEvaluated = {}
+            if(assessment.evaluated === currentMember){
+              let memberEvaluator = {}
               membersData.forEach((member)=>{
-                if(assessment.evaluated === member._id){
-                  return memberEvaluated = member
+                if(assessment.evaluator === member._id){
+                  return memberEvaluator = member
                 }
               })
-              if(currentMember === user._id){
+              if(assessment.evaluator === user._id && assessment.done === false){
                 return (
-                <Link to={`/myTeam/${teamId}/checkpoint/${checkpointId}/assessment/${assessment._id}`} key={assessment._id}>
-                  <p>Member to evaluate: {memberEvaluated.firstName} {memberEvaluated.lastName}</p>
-                  <p>{assessmentGrowthCompass.name}</p>
-                </Link>
+                  <Link to={`/myTeam/${teamId}/checkpoint/${checkpointId}/assessment/${assessment._id}`} key={assessment._id} className="btn btn-secondary mb-3">Do my assessment</Link>
               )
 
-              }else{
-
-              return (
-                <div key={assessment._id}>
-                  <p>Member to evaluate: {memberEvaluated.firstName} {memberEvaluated.lastName}</p>
-                  <p>{assessmentGrowthCompass.name}</p>
-                </div>
-              )
+              }else if(assessment.done === false){
+                return (
+                  <div key={assessment._id} className="alert alert-warning" role="alert">
+                    <strong className="font-weight-bold">{memberEvaluator.firstName} {memberEvaluator.lastName}</strong> <span>Waiting</span>
+                  </div>
+                )
+              } else{
+                return (
+                  <div key={assessment._id} className="alert alert-success" role="alert">
+                    <strong className="font-weight-bold">{memberEvaluator.firstName} {memberEvaluator.lastName}</strong> <span>Done</span>
+                  </div>
+                )
               }
             } else{
               return null
