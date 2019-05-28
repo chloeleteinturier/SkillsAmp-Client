@@ -1,13 +1,8 @@
 import React, { Component } from 'react'
 import { withAuth } from '../providers/AuthProvider';
 import { Link } from 'react-router-dom';
-import {Polar} from 'react-chartjs-2';
-
-
 
 import ChartsPage from './../components/PolarChart'
-
-
 
 import userService from './../lib/users-service';
 import growthModelService from './../lib//growthModel-service';
