@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { withAuth } from '../providers/AuthProvider';
-import { Link } from 'react-router-dom';
 
 
 import teamsService from './../lib/teams-service';
 import checkpointService from './../lib/checkpoint-service';
 import userService from './../lib/users-service';
 
+import Navbar from './../components/Navbar'
 import CheckpointInfoCard from './../components/checkpoint/CheckpointInfoCard'
 
 
@@ -16,6 +16,7 @@ class Checkpoint extends Component {
   constructor(props){
     super(props);
       this.state={
+        user:{},
         team: {},
         date: '',
         assessments: [],
@@ -49,36 +50,58 @@ class Checkpoint extends Component {
       })
   }
 
+  getTheDate= (checkpointDate) =>{
+    let betterDate = new Date(JSON.parse(`"${checkpointDate}"`))
+
+    const dd = String(betterDate.getDate()).padStart(2, '0');
+    const mm = String(betterDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = betterDate.getFullYear();
+
+    betterDate = `${dd}/${mm}/${yyyy}`;
+    console.log(betterDate)
+    return (
+      <span>{betterDate}</span>
+    )
+  }
+
   componentDidMount() {
+    const {user} = this.props
+    userService.getOne(user._id)
+      .then((oneUser)=>{
+        this.setState({ user: oneUser })
+      })
     this.fetchCurrentTeam();
     this.fetchCurrentCheckpoint();
   }
 
   render() {
-    console.log('this.props', this.props)
-    console.log(this.props.user)
-    console.log('this.props.user.team', this.props.user.team)
-    console.log('this.props.match.params', this.props.match.params)
-    console.log('this.state',this.state)
-    const {team, assessments} = this.state
+    const {team, assessments, user, date} = this.state
     const {checkpointId, teamId} = this.props.match.params
-    console.log('team', team)
-    console.log('team.members', team.members)
-    console.log('assessments', assessments)
+
 
     return (
-      <div>
-        <Link to='/'><h1>SkillsAmp</h1></Link>
-        <Link to={`/myteam/${team._id}`}><h2>Team: {team.name}</h2></Link>
+      <div className="container-fluid content">
 
-        {
-        team.members ?
-        <CheckpointInfoCard assessments={assessments} members={team.members} me={this.props.user} teamId={teamId} checkpointId={checkpointId}/>
-        :
-        null
-        }
+        <div className="row">
 
+          <Navbar theUser={user} />
 
+          <div className="col- col-sm- col-md- col-lg-10 col-xl- mainview pt-3 pb-3">
+            <h1 className="h4 text-center mt-4 mb-2">Checkpoint: <strong className="font-weight-bold">{this.getTheDate(date)}</strong></h1>
+            <h2 className="h5 text-center mb-4">My team: <strong className="font-weight-bold">{team.name}</strong></h2>
+          
+            
+              
+              {
+              team.members ?
+              <CheckpointInfoCard assessments={assessments} members={team.members} me={this.props.user} teamId={teamId} checkpointId={checkpointId}/>
+              :
+              null
+              }
+
+            
+          </div>
+        </div>
       </div>
     )
   }

@@ -64,16 +64,27 @@ export default class CheckpointInfoCard extends Component {
     console.log('this.props.assessments', this.props.assessments)
     console.log('membersData', membersData)
     return (
-      <div>
+      <div className="container container-block pt-4 mb-4 d-flex flex-wrap">
         {
           this.state.membersData.map((oneMember)=>{
             console.log(oneMember)
             return(
-              <div key={oneMember._id}>
-                <img src={oneMember.photoUrl} alt={oneMember.firstName}/>
-                <p>{oneMember.firstName} {oneMember.lastName}</p>
-                <AssessmentInfoCard currentMember={oneMember._id} assessments={assessments} membersData={membersData} teamId={teamId} checkpointId={checkpointId}/>
+           
+              <div className="card my-team-member p-1">
+                <div className="profile-pic m-auto">
+                  <img src={oneMember.photoUrl} alt={oneMember.firstName} />
+                </div>
+                <div class="card-body">
+                <p class="card-text">{oneMember.firstName} {oneMember.lastName}</p>
+
+                  <AssessmentInfoCard currentMember={oneMember._id} assessments={assessments} membersData={membersData} teamId={teamId} checkpointId={checkpointId}/>
+
+
+                </div>
               </div>
+
+
+
 
             )
           })

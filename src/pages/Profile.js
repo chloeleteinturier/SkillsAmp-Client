@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withAuth } from '../providers/AuthProvider';
 import { Link } from 'react-router-dom';
 
-import ChartsPage from './../components/PolarChart'
+import PolarChart from './../components/PolarChart'
 
 import userService from './../lib/users-service';
 import growthModelService from './../lib//growthModel-service';
@@ -16,6 +16,26 @@ class Profile extends Component {
     this.state={
       user: {},
       growthModel: {},
+      data:[
+        2.2,
+        3.1,
+        1,
+        1.8,
+        3.1,
+        0.5,
+        2.8,
+        2,
+      ],
+      labels: [
+        'Javasctipt',
+        'Node.js',
+        'Express.js',
+        'HTML',
+        'CSS',
+        'React',
+        'Communication',
+        'Emphaty',
+      ]
     }
   }
 
@@ -37,7 +57,7 @@ class Profile extends Component {
 
 
   render() {
-    const { user, growthModel} = this.state
+    const { user, growthModel, labels, data} = this.state
     console.log('this.props', this.props)
     console.log('this.state', this.state)
     console.log('user', user)
@@ -66,27 +86,27 @@ class Profile extends Component {
     //   }]
     // };
 
-    const data=[
-      2.2,
-      3.1,
-      1,
-      1.8,
-      3.1,
-      0.5,
-      2.8,
-      2,
-    ]
+    // const data=[
+    //   2.2,
+    //   3.1,
+    //   1,
+    //   1.8,
+    //   3.1,
+    //   0.5,
+    //   2.8,
+    //   2,
+    // ]
 
-    const labels = [
-      'Javasctip',
-      'Node.js',
-      'Express.js',
-      'HTML',
-      'CSS',
-      'React',
-      'Communication',
-      'Emphaty',
-    ]
+    // const labels = [
+    //   'Javasctipt',
+    //   'Node.js',
+    //   'Express.js',
+    //   'HTML',
+    //   'CSS',
+    //   'React',
+    //   'Communication',
+    //   'Emphaty',
+    // ]
 
 
     return (
@@ -101,7 +121,7 @@ class Profile extends Component {
                 <h5 className='text-center mt-4 mb-4'><Link to='/create-team'>Create a team to start</Link></h5>
               }
 
-          <ChartsPage data={data} labels={labels} />
+          <PolarChart data={data} labels={labels} />
 
 
         </div>

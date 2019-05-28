@@ -30,7 +30,7 @@ export default class TeamMemberCard extends Component {
   render() {
     const {membersData} = this.state
     return (
-      <div className="container container-block pt-4 mb-4 d-flex flex-wrap">
+      <div className="container container-block pt-4 mb-3 d-flex flex-wrap">
         {
           membersData.map((oneMember)=>{
             return (
