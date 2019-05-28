@@ -30,14 +30,18 @@ export default class TeamMemberCard extends Component {
   render() {
     const {membersData} = this.state
     return (
-      <div>
+      <div className="container container-block pt-4 mb-4 d-flex flex-wrap">
         {
           membersData.map((oneMember)=>{
             return (
-              <div key={oneMember._id}>
-                <img src={oneMember.photoUrl} alt={oneMember.firstName}/>
-                <p>{oneMember.firstName} {oneMember.lastName}</p>
-              </div>
+              <div key={oneMember._id} className="card my-team-member p-1">
+                <div className="profile-pic m-auto">
+                  <img src={oneMember.photoUrl} alt={oneMember.firstName} />
+                </div>
+                <div className="card-body">
+                  <p className="card-text">{oneMember.firstName} {oneMember.lastName}</p>
+                </div>
+              </div>                        
             )
           })
         }

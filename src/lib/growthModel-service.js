@@ -13,6 +13,11 @@ class GrowthModelService {
     .then((data) => data )
   }
 
+  getOne = (id) =>{
+    return this.auth.get(`/growth-model/${id}`)
+    .then((data) => data.data )
+  }
+
   getOneByName = (name) => {
     return this.auth.get(`/growth-model/name/${name}`)
     .then((data) => data.data )

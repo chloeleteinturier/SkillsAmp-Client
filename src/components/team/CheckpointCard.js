@@ -55,30 +55,31 @@ export default class CheckpointCard extends Component {
     const {team} = this.props
     console.log(' this.props.team',team)
     return (
-      <div>
+        <div className="container container-block pt-4 mb-4">
+          <h5 className="h5 mb-3">Assessment checkpoints</h5>
         {
           team.checkpoints ?
             team.checkpoints.map((oneCheckpoint)=>{
               return (
-                <Link to={`/myTeam/${this.props.team._id}/checkpoint/${oneCheckpoint._id}`} key={oneCheckpoint._id} team={this.props.team} checkpoint={oneCheckpoint}>
-                  {
-                    <div>
-                      {this.getTheDate(oneCheckpoint.date)}
+                <div key={oneCheckpoint._id} className="list-group list-group-flush">
+                  <Link to={`/myTeam/${this.props.team._id}/checkpoint/${oneCheckpoint._id}`} className="list-group-item list-group-item-action flex-column align-items-start">
+                    <div className="d-flex w-100 justify-content-between">
+                      <p className="mb-1">Date: <stron className="font-weight-bold">{this.getTheDate(oneCheckpoint.date)}</stron></p>
                       {
                         oneCheckpoint.currentCheckpoint ?
-                        <p>true</p>
+                        <small>true</small>
                         :
-                        <p>false</p>
+                        <small>false</small>
                       }
                     </div>
-                  }
-                </Link>
+                  </Link>
+                </div>
               )
             })
-            :
-            null
+          :
+          null
         }
-      </div>
+        </div>
     )
   }
 }

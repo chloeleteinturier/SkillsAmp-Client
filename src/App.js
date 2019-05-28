@@ -5,7 +5,6 @@ import PrivateRoute from './components/PrivateRoute';
 import AnonRoute from './components/AnonRoute';
 
 import LandingPage from './components/LandingPage';
-// import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
@@ -25,7 +24,7 @@ class App extends Component {
   render() {
     return (
       <AuthProvider>
-        <div>
+        <div className='root-wrap'>
           <Switch>
             <AnonRoute exact path='/' component={LandingPage} />
             <AnonRoute path="/signup" component={Signup} />

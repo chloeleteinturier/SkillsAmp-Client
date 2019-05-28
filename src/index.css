@@ -1,17 +1,26 @@
+/* General styles */
 
 html {
   position: relative;
+  height: 100%;
   min-height: 100%;
 }
 body {
-  margin-bottom: 45px; /* Margin bottom by footer height */
-  font-family: 'Nunito Light', sans-serif;
+  padding-bottom: 45px; /* Padding bottom by footer height */
+  font-family: 'Nunito', sans-serif;
+  font-weight: 300;
   font-size: 16px;
   color: #212122;
+  height: 100%;
+}
+
+#root, #root .root-wrap {
+  height: 100%;
 }
 
 h1, h2 {
-  font-family: 'Nunito';
+  font-family: 'Nunito', sans-serif;
+  font-weight: 300;
 }
 
 /* links */
@@ -25,6 +34,14 @@ a:hover {
   color: #004C4E;
 }
 
+.fas{
+  color: #009598;
+}
+
+.font-weight-bold {
+  font-family: 'Nunito';
+  font-weight: 600 !important;
+}
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -41,6 +58,190 @@ a:hover {
   font-size: 14px;
 }
 
+@media (max-width: 992px) { /* we hide the sticky footer */
+  .footer {
+      display: none;
+  }
+}
+
+/* Main layout
+-------------------------------------------------- */
+
+.mainview {
+   background-color: #F9F9FB;
+}
+.subview {
+   background-color: #F0F0F0;        
+}
+
+@media (min-width: 576px) {
+  .container-fluid.content {
+      height: 100%;
+  }
+  .container-fluid.content>.row {
+      height: 100%;
+  }    
+  .mainview, .subview {
+      height: 100%;
+      overflow: auto;        
+  }
+}
+
+/* Left nav
+-------------------------------------------------- */
+
+.navbar-toggler {
+  border: none;
+}
+
+.centered {
+  margin:auto;
+  display:block;
+}
+
+.navview .nav-item{
+  font-family: 'Nunito';
+  font-size: 1.1em;
+  
+}
+
+.navview .nav-item.active{
+  background-color: rgba(202, 0, 40, 0.1);
+  border-left: #CA0027 5px solid;
+}
+
+.navview .navbar-light .navbar-nav .nav-item .nav-link{
+  text-decoration:none;
+  color: #CA0027;
+  padding-left: 15px;
+}
+
+.navview .nav-item .nav-link:hover {
+  background-color: rgba(202, 0, 40, 0.1);
+}
+
+@media (max-width: 992px) { 
+  .navbar-brand img{
+      max-width: 125px;
+      margin-left: 54px !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar-brand {
+      width: 100%;
+      text-align: center;
+  }
+  .navbar-brand img{
+      width: auto;
+      max-width: 100%;
+      padding-top:5px;
+
+  }
+}
+
+/* Right bar
+-------------------------------------------------- */
+.user-info {
+  margin:0.8rem;
+}
+
+.profile-pic {
+  background: url(./assets/bg_profile.png) no-repeat 0 0;
+  background-size: contain;
+  padding: 0.33em;
+  max-width: 180px;
+  transition: 0.3s;
+}
+
+.profile-pic:hover {
+  transform: scale(1.05, 1.05);
+  padding: 0.55em;
+}
+
+
+.profile-pic img {
+  border-radius:50%;
+  width: 100%;
+}
+
+.member-item img {
+  width: 30%;
+  max-width: 75px;
+}
+
+/* Main content
+-------------------------------------------------- */
+.container-block {
+  background: #FFFFFF;
+  box-shadow: 0 0 5px -4px rgba(0,0,0,0.50);
+  border-radius: 8px;
+  padding: 0.8em;
+  margin-bottom:1em;
+}
+
+.center-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Skillswheel
+-------------------------------------------------- */
+
+.chart {
+  width: 420px;
+  margin: 0 auto;
+}
+
+/* layers */
+#chart .layer-0 path {
+  opacity: 1;
+}
+#chart .layer-1 path {
+  opacity: 0.4; 
+  stroke-width: 1px;
+}
+/* Outer circle, tick-circles and spokes */
+#chart .tick-circles circle {
+  stroke: #fff;
+  stroke-width: 2px;
+}
+#chart .spokes line {
+  stroke: #fff;
+  stroke-width: 2px;
+}
+
+/* Labels */
+#chart .labels text {
+  fill: #212121;
+  font-family: 'Nunito Light', sans-serif;
+  font-size: 14px;
+}
+
+/* Wheel mediaqueries for size */
+.chart {
+  /* --myheight: 190; */
+}
+/* @media (min-width: 576px) {
+  .chart {
+      --myheight: 180;
+      width: 400px;
+  }
+}
+
+@media (min-width: 768px) {
+  .chart {
+      --myheight: 230;
+      width: 500px;
+  }
+}
+
+@media (min-width: 992px) {
+  .chart {
+      --myheight: 260;
+      width: 560px;
+  }
+} */
 
 /* Forms
 -------------------------------------------------- */
@@ -205,8 +406,65 @@ border-radius: .25rem
   text-align: left;
 }
 
-.upload-photo label i{
-  color: #009598;
+.upload-photo label .fas{
   font-size: 1.2em;
   margin-right: 5px;
 }
+
+/* create team */
+.addmember-wrap {
+  padding:0 10px 0 0;
+}
+
+/* my team */
+.my-team-member {
+  width: 10rem;
+  text-align: center;
+  border: none;
+  margin: 0 auto;
+}
+
+.my-team-member .card-body {
+  padding: 0.5rem;
+}
+
+a.list-group-item-action {
+  color:#009598;
+}
+a.list-group-item-action:hover {
+  color:#004C4E;
+  text-decoration: underline;
+}
+
+/* checkpoint */
+.other-assess span {
+  display: block;
+}
+
+/* ToDoList */
+
+#todolist li{
+  cursor: pointer;
+}
+
+.placeholder-class {
+  opacity: 0.1;
+}
+
+#todolist .checked {
+  background: #F9F9FB;
+  color: #bbb;
+  
+}
+#todolist .checked p, #todolist .checked small{
+text-decoration: line-through;
+}
+
+.todo-check {
+  font-size: 1.3rem;
+}
+
+.close:hover {
+  color:red;
+}
+
