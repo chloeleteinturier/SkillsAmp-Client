@@ -120,10 +120,9 @@ class Profile extends Component {
                 :
                 <h5 className='text-center mt-4 mb-4'><Link to='/create-team'>Create a team to start</Link></h5>
               }
-
-          <PolarChart data={data} labels={labels} />
-
-
+              <div className="container container-block">
+                <PolarChart data={data} labels={labels} />
+              </div>
         </div>
 
           </div>

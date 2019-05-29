@@ -11,24 +11,24 @@ class PolarChart extends React.Component {
           {
             data: [...this.props.data],
             backgroundColor: [
-              Chart.helpers.color('#F64B00').alpha(0.7).rgbString(),
-              Chart.helpers.color('#F49F00').alpha(0.7).rgbString(),
+              Chart.helpers.color('#FF0000').alpha(0.7).rgbString(),
+              Chart.helpers.color('#FF5D00').alpha(0.7).rgbString(),
+              Chart.helpers.color('#FFCE00').alpha(0.7).rgbString(),
               Chart.helpers.color('#00B15A').alpha(0.7).rgbString(),
               Chart.helpers.color('#009598').alpha(0.7).rgbString(),
               Chart.helpers.color('#0058A5').alpha(0.7).rgbString(),
               Chart.helpers.color('#620794').alpha(0.7).rgbString(),
-              Chart.helpers.color('#CA0027').alpha(0.7).rgbString(),
-              Chart.helpers.color('#EA0000').alpha(0.7).rgbString(),
+              Chart.helpers.color('#CA0091').alpha(0.7).rgbString(),
             ],
             hoverBackgroundColor: [
-              '#F64B00',
-              '#F49F00',
+              '#FF0000',
+              '#FF5D00',
+              '#FFCE00',
               '#00B15A',
               '#009598',
               '#0058A5',
               '#620794',
-              '#CA0027',
-              '#EA0000'
+              '#CA0091'
             ],
           }
         ],
@@ -37,7 +37,7 @@ class PolarChart extends React.Component {
       options: {
 				responsive: true,
 				legend: {
-					position: 'right',
+					display : false,
 				},
 				scale: {
 					ticks: {
@@ -59,13 +59,14 @@ class PolarChart extends React.Component {
 				animation: {
 					animateRotate: true,
 					animateScale: true
-				},
-				
+        },       
       },
     data:this.props.data,
     labels:this.props.labels
     }
   }
+
+
 
   // componentDidMount(){
   //   const {data} = this.props

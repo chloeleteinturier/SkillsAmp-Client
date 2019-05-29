@@ -70,16 +70,13 @@ export default class CheckpointInfoCard extends Component {
             console.log(oneMember)
             return(
            
-              <div className="card my-team-member p-1">
+              <div key={oneMember._id} className="card my-team-member p-1">
                 <div className="profile-pic m-auto">
                   <img src={oneMember.photoUrl} alt={oneMember.firstName} />
                 </div>
-                <div class="card-body">
-                <p class="card-text">{oneMember.firstName} {oneMember.lastName}</p>
-
+                <div className="card-body">
+                <p className="card-text">{oneMember.firstName} {oneMember.lastName}</p>
                   <AssessmentInfoCard currentMember={oneMember._id} assessments={assessments} membersData={membersData} teamId={teamId} checkpointId={checkpointId}/>
-
-
                 </div>
               </div>
 

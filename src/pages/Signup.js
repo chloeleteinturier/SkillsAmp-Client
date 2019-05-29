@@ -10,6 +10,7 @@ import userService from './../lib/users-service';
 
 
 import largeLogo from "./../assets/logo_skillsamp_L.png"
+import authService from '../lib/auth-service';
 
 
 class Signup extends Component {
@@ -43,8 +44,22 @@ class Signup extends Component {
           .catch( error => console.log(error) )
       }
     })
-    
-    }
+  }
+
+  fileOnchange = (event) => {
+    const file = event.target.files[0];
+    const uploadData = new FormData()
+    uploadData.append('photo', file)
+
+    authService.imageUpload(uploadData)
+    .then((photoUrl) => {
+      console.log('photoUrl', photoUrl)
+      this.setState({
+        photoUrl,
+      })
+    })
+    .catch((error) => console.log(error))
+  }
   
 
   handleChange = (event) => {  
@@ -59,7 +74,7 @@ class Signup extends Component {
   }
 
   render() {
-    const { password, firstName, lastName, email, photoUrl } = this.state;
+    const { password, firstName, lastName, email } = this.state;
     return (
 
       
@@ -114,7 +129,7 @@ class Signup extends Component {
               </span>                            
             </div>
             <div className="form-group custom-file upload-photo">
-              <input type="file" className="custom-file-input" id="customFile" name='photoUrl' value={photoUrl} onChange={(event)=>this.handleChange(event)} required />
+              <input type="file" className="custom-file-input" id="customFile" name='photoUrl' onChange={(event)=>this.fileOnchange(event)} required />
               <label className="custom-file-label" htmlFor="customFile"> <i className="fas fa-cloud-upload-alt"/> Upload your photo</label>
               <div className="valid-feedback">
                 Great pic!

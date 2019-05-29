@@ -8,6 +8,11 @@ class AuthService {
     })
   }
 
+  imageUpload(file) {
+    return this.auth.post('/auth/signup/image', file)
+    .then(({data}) => data)
+  }
+
   signup(user) {
     const { password, firstName, lastName, email, photoUrl } = user;
     console.log(user)

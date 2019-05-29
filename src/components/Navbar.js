@@ -5,11 +5,10 @@ import { withAuth } from './../providers/AuthProvider';
 
 
 import mediumLogo from './../assets/logo_skillsamp_M.png'
-import placeholder from './../assets/profile_placeholder.png'
 
 class Navbar extends Component {
   render() {
-    const {user, theUser, logout} = this.props
+    const {theUser, logout} = this.props
     console.log(this.props)
     return (
       <div className="col- col-sm- col-md- col-lg-2 col-xl- navview p-0">
@@ -29,7 +28,7 @@ class Navbar extends Component {
               {
               theUser.team ?
               <li className="nav-item">
-                <Link to={`/myteam/${user.team}`} className="nav-link" >My team</Link>
+                <Link to={`/myteam/${theUser.team._id}`} className="nav-link" >My team</Link>
               </li>
               :
               null
@@ -40,9 +39,9 @@ class Navbar extends Component {
               <li className="nav-item">
                 <div className="user-info text-center mb-5">
                   <div className="profile-pic m-auto">
-                    <img src={placeholder} alt="Sigrid" />
+                    <img src={theUser.photoUrl} alt={theUser.firstName} />
                   </div>
-                  <p className="h4 mt-3">{user.firstName} {user.lastName}</p>
+                  <p className="h4 mt-3">{theUser.firstName} {theUser.lastName}</p>
                   <Link to='/' onClick={logout}>Log out</Link>
                 </div>
               </li>                                                                                         
