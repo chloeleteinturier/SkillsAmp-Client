@@ -9,7 +9,6 @@ import mediumLogo from './../assets/logo_skillsamp_M.png'
 class Navbar extends Component {
   render() {
     const {theUser, logout} = this.props
-    console.log(this.props)
     return (
       <div className="col- col-sm- col-md- col-lg-2 col-xl- navview p-0">
 

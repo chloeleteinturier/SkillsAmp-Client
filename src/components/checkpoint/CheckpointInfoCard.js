@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 
 import userService from './../../lib/users-service'
 import AssessmentInfoCard from './AssessmentInfoCard'
@@ -8,6 +9,7 @@ export default class CheckpointInfoCard extends Component {
     super(props);
     this.state={
       membersData:[],
+      allDone: true
     }
   }
 
@@ -22,52 +24,29 @@ export default class CheckpointInfoCard extends Component {
     })
   }
 
-  displayAssessments = () =>{
-    this.state.membersData.map((oneMember)=>{
-      console.log(oneMember)
-      let memberEvaluated;
-      let assessmentGrowthCompass;
-
-      this.props.assessments.forEach((assessment)=>{
-        console.log(assessment.evaluator)
-        if(assessment.evaluator === oneMember._id){
-          console.log(true)
-          assessmentGrowthCompass = assessment.growthCompass
-          userService.getOne(assessment.evaluated)
-            .then((user)=>{
-              memberEvaluated = `${user.firstName} ${user.lastName}`
-            })
-        }
-      })
-      console.log(memberEvaluated)
-      console.log(assessmentGrowthCompass)
-      return (
-        <div key={oneMember._id}>
-          <img src={oneMember.photoUrl} alt={oneMember.firstName}/>
-          <p>{oneMember.firstName} {oneMember.lastName}</p>
-          <p>{assessmentGrowthCompass.name}</p>
-          <p>{memberEvaluated}</p>
-        </div>
-      )
+  checkIfAssessmentsAllDone = () =>{
+    const {assessments} = this.props;
+    assessments.forEach((assessment)=>{
+      if(assessment.done === false){
+        this.setState({allDone: false})
+      }
     })
   }
 
   componentDidMount(){
     this.fetchMembers()
-    this.displayAssessments()
+    this.checkIfAssessmentsAllDone()
   }
 
   render() {
-    const {membersData} = this.state
+    const {membersData, allDone} = this.state
     const {assessments, checkpointId, teamId} = this.props
-    console.log('this.props', this.props)
-    console.log('this.props.assessments', this.props.assessments)
-    console.log('membersData', membersData)
+    console.log('assessments',assessments)
+    console.log('allDone', allDone)
     return (
       <div className="container container-block pt-4 mb-4 d-flex flex-wrap">
         {
           this.state.membersData.map((oneMember)=>{
-            console.log(oneMember)
             return(
            
               <div key={oneMember._id} className="card my-team-member p-1">
@@ -77,12 +56,16 @@ export default class CheckpointInfoCard extends Component {
                 <div className="card-body">
                 <p className="card-text">{oneMember.firstName} {oneMember.lastName}</p>
                   <AssessmentInfoCard currentMember={oneMember._id} assessments={assessments} membersData={membersData} teamId={teamId} checkpointId={checkpointId}/>
+                  {
+                    allDone?
+                      <Link to={`/myTeam/${teamId}/checkpoint/${checkpointId}/final-assessment`} className="btn btn-primary mb-3">Final assessment</Link>
+                    :
+                    null
+                  }
                 </div>
+
+                
               </div>
-
-
-
-
             )
           })
         }

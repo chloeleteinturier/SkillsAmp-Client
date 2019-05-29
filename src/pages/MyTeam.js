@@ -5,6 +5,7 @@ import { withAuth } from './../providers/AuthProvider';
 import userService from './../lib/users-service';
 import teamsService from './../lib/teams-service';
 import checkpointService from './../lib/checkpoint-service';
+import finalCompassService from './../lib/finalCompass-service';
 
 import Navbar from './../components/Navbar'
 import TeamMemberCard from './../components/team/TeamMemberCard'
@@ -21,8 +22,9 @@ class MyTeam extends Component {
       members: [],
       growthModel: '',
       checkpoints: [],
-      assessments:[],
-      user: {}
+      user: {},
+      // assessments:[],
+      finalAssessmentsId: []
     }
   }
 
@@ -56,22 +58,50 @@ class MyTeam extends Component {
       })
     })
     console.log(assessments)
-
-
     return assessments;
   }
+
+  doCreateFinalCompass = (membersID) => {
+    const {id} = this.props.match.params
+    const finalAssessmentsPromises = membersID.map((OneMemberId)=>{
+      
+      let oneFinalAssessmentId
+      let evaluated = OneMemberId;
+      let growthCompass = this.state.growthModel
+      let team = id
+
+      return finalCompassService.createFinalCompass(evaluated , growthCompass, team )
+        .then((finalCompass)=>{
+          console.log("finalCompass",finalCompass)
+          oneFinalAssessmentId = finalCompass._id
+          console.log("one", oneFinalAssessmentId)
+          return oneFinalAssessmentId
+        })
+    })
+
+    Promise.all(finalAssessmentsPromises)
+      .then((finalAssessments) => {
+        console.log("final",finalAssessments)
+      })
+    // create the finalAssessments models
+    // return an Array of finalAssessment Id, in the state
+    // this.createAssessments(members)
+    // checkpointService.createCheckpoint(assess, finalAssessment)
+
+  }
+
+
 
   handleCheckpointCreation = (event) => {
     event.preventDefault();
     const {checkpoints, _id, members} = this.state;
-    console.log(event)
+
+    // this.doCreateFinalCompass(members)
 
     const assess = this.createAssessments(members)
-    console.log(assess)
     this.setState({assessments: assess})
-    console.log('this.state', this.state)
-    
-    checkpointService.createCheckpoint(assess)
+
+    checkpointService.createCheckpoint(assess)  //add ,finalAssessment  after assess
       .then((data)=>{
         console.log('new checkpoint:', data)
         checkpoints.unshift(data._id)
@@ -90,11 +120,8 @@ class MyTeam extends Component {
   render() {
     const {name, members, checkpoints, user} = this.state
     console.log('this.state.', this.state)
-    console.log('members', members)
-    console.log('members.length', members.length)
-    // console.log('this.team.length', team.length)
-    console.log(checkpoints)
-    console.log(checkpoints.length)
+    console.log(this.props.match)
+
 
     return (
     <div className="container-fluid content">

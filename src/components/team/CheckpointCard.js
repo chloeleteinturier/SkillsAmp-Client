@@ -17,9 +17,8 @@ export default class CheckpointCard extends Component {
     const yyyy = betterDate.getFullYear();
 
     betterDate = `${dd}/${mm}/${yyyy}`;
-    console.log(betterDate)
     return (
-      <p>{betterDate}</p>
+      <span>{betterDate}</span>
     )
   }
 
@@ -36,7 +35,7 @@ export default class CheckpointCard extends Component {
                 <div key={oneCheckpoint._id} className="list-group list-group-flush">
                   <Link to={`/myTeam/${this.props.team._id}/checkpoint/${oneCheckpoint._id}`} className="list-group-item list-group-item-action flex-column align-items-start">
                     <div className="d-flex w-100 justify-content-between">
-                      <p className="mb-1"><stron className="font-weight-bold">{this.getTheDate(oneCheckpoint.date)}</stron></p>
+                      <p className="mb-1"><strong className="font-weight-bold">{this.getTheDate(oneCheckpoint.date)}</strong></p>
                       {
                         oneCheckpoint.currentCheckpoint ?
                         <small>true</small>

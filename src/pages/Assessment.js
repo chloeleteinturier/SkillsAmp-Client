@@ -21,7 +21,9 @@ class Assessment extends Component {
       theAssessment : {},
       memberEvaluated: {},
       labels: [],
-      data: []
+      data: [],
+      readyToMount: false,
+      changedValues: false
     }
   }
 
@@ -31,15 +33,16 @@ class Assessment extends Component {
     userService.getOne(user._id)
       .then((oneUser)=>{
         this.setState({ user: oneUser })
+        checkpointService.getOne(checkpointId)
+        .then( (currentCheckpoint) =>{
+          this.setState({checkpoint:currentCheckpoint});
+          this.fetchTheAssessment()
+          this.fetchMemberEvaluated()
+          })
+          .catch((err) => console.log(err));
       })
 
-    checkpointService.getOne(checkpointId)
-      .then( (currentCheckpoint) =>{
-        this.setState({checkpoint:currentCheckpoint});
-        this.fetchTheAssessment()
-        this.fetchMemberEvaluated()
-        })
-        .catch((err) => console.log(err));
+   
     }
   
   fetchTheAssessment = () =>{
@@ -77,31 +80,34 @@ class Assessment extends Component {
     const data = theAssessment.growthCompass.indicators.map((oneIndicator)=>{
       return oneIndicator.assessedLevel
     })
-    this.setState({data})
+    this.setState({data, readyToMount:true})
   }
 
   updateTheData = (id, value) =>{
     const {data} = this.state
-    console.log('yolo!!!!!!', id, value)
     const dataCopy = data;
     dataCopy[id] = parseFloat(value)
-    this.setState({data:dataCopy})
+    this.setState({data:dataCopy, changedValues: true, readyToMount:false})
   }
 
   updateTheAssessment = (theGrowthCompass) =>{
     const { teamId, checkpointId } = this.props.match.params
     const {theAssessment, checkpoint} = this.state
-    console.log('youhouuuuuuuu', theGrowthCompass)
-    console.log('this.state.theAssessment', theAssessment)
 
-    const checkpointUpdated = checkpoint.assessments.map((oneAssessment)=>{
+    const assessmentsUpdated = checkpoint.assessments.map((oneAssessment)=>{
       if(oneAssessment._id === theAssessment._id){
         oneAssessment.growthCompass = theGrowthCompass
+        oneAssessment.done = true
         return oneAssessment
       } else {
         return oneAssessment
       }
     })
+    console.log('checkpoint', checkpoint)
+    const checkpointUpdated = checkpoint
+    checkpointUpdated.assessments =assessmentsUpdated
+
+    console.log('checkpointUpdated', checkpointUpdated)
     checkpointService.updateOne(checkpoint._id, checkpointUpdated)
       .then((result)=>{
         console.log(result)
@@ -110,17 +116,22 @@ class Assessment extends Component {
   
     }
 
+    mountChart = () => {
+      if(this.state.changedValues && !this.state.readyToMount){
+        this.setState({readyToMount:true, changedValues:false})
+      }
+    }
+
   render() {
-    // console.log('this.props', this.props)
-    // console.log('this.state', this.state)
-    const { theAssessment, memberEvaluated, data, labels, user } = this.state
-    const { checkpoint} = this.state
-    console.log('checkpoint', checkpoint)
+    let { theAssessment, memberEvaluated, data, labels, user } = this.state
+    // const { checkpoint} = this.state
 
     const { teamId, checkpointId } = this.props.match.params
-    // const { assessmentId } = this.props.match.params
-    // console.log('theAssessment', theAssessment)
-    // console.log('this.state', this.state)
+
+    console.log(this.state.readyToMount)
+
+    console.log(data)
+
     return (
       <div className="container-fluid content">
 
@@ -135,7 +146,7 @@ class Assessment extends Component {
               memberEvaluated._id === user._id ?
               <div>
                 <h1 className="h4 text-center mt-4 mb-4"><span className="font-weight-bold">My own</span> assessment</h1>
-                <p className='text-center text-muted mb-0'>You are evaluating yourself with the growth model: {theAssessment.growthCompass.name} </p>
+                <p className='text-center text-muted mb-0'>You are evaluating yourself with the growth model: <span className="font-weight-bold">{theAssessment.growthCompass.name}</span> </p>
                 <p className="text-center mt-0"><Link to={`/myTeam/${teamId}/checkpoint/${checkpointId}`}>Back to the checkpoint</Link></p>
                 <AssessmentCard growthCompass={theAssessment.growthCompass} updateTheAssessment={this.updateTheAssessment} updateTheData={this.updateTheData}/>
               </div>
@@ -148,13 +159,14 @@ class Assessment extends Component {
               </div>
             }
             {
-              data ?
+              this.state.readyToMount ?
               <div className="container container-block pt-4 mb-4">
-                <PolarChart data={data} labels={labels} />
+                <PolarChart data={data} labels={labels} animation={false} />
               </div>
               :
               null
             }
+            {this.mountChart()}
           </div>
           :
           null
