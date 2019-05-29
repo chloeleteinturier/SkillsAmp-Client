@@ -21,6 +21,7 @@ class Checkpoint extends Component {
         date: '',
         assessments: [],
         currentCheckpoint: true,
+        finalAssessment: [],
       }
   }
 
@@ -28,6 +29,7 @@ class Checkpoint extends Component {
     const { checkpointId } = this.props.match.params;
     checkpointService.getOne(checkpointId)
       .then( (checkpoint) =>{
+        console.log('checkpoint',checkpoint)
         this.setState(checkpoint);
       })
       .catch((err) => console.log(err));
@@ -35,15 +37,10 @@ class Checkpoint extends Component {
 
   fetchCurrentTeam = () =>{
     const{ _id } = this.props.user
-    console.log(_id)
     userService.getOne(_id)
       .then((userData)=>{
-        console.log(userData)
-        
-        console.log(userData.team._id)
         teamsService.getOne(userData.team._id)
         .then( (team) =>{
-          console.log('team', team)
           this.setState({team});
         })
         .catch((err) => console.log(err));
@@ -58,7 +55,6 @@ class Checkpoint extends Component {
     const yyyy = betterDate.getFullYear();
 
     betterDate = `${dd}/${mm}/${yyyy}`;
-    console.log(betterDate)
     return (
       <span>{betterDate}</span>
     )
@@ -75,9 +71,9 @@ class Checkpoint extends Component {
   }
 
   render() {
-    const {team, assessments, user, date} = this.state
+    const { team, assessments, user, date } = this.state
     const {checkpointId, teamId} = this.props.match.params
-
+    console.log('this.state',this.state)
 
     return (
       <div className="container-fluid content">
@@ -89,9 +85,7 @@ class Checkpoint extends Component {
           <div className="col- col-sm- col-md- col-lg-10 col-xl- mainview pt-3 pb-3">
             <h1 className="h4 text-center mt-4 mb-2">Checkpoint: <strong className="font-weight-bold">{this.getTheDate(date)}</strong></h1>
             <h2 className="h5 text-center mb-4">My team: <strong className="font-weight-bold">{team.name}</strong></h2>
-          
-            
-              
+
               {
               team.members ?
               <CheckpointInfoCard assessments={assessments} members={team.members} me={this.props.user} teamId={teamId} checkpointId={checkpointId}/>
@@ -99,7 +93,6 @@ class Checkpoint extends Component {
               null
               }
 
-            
           </div>
         </div>
       </div>

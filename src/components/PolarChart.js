@@ -57,36 +57,22 @@ class PolarChart extends React.Component {
 					reverse: false
 				},
 				animation: {
-					animateRotate: true,
-					animateScale: true
+					animateRotate: this.props.animation,
+					animateScale: this.props.animation
         },       
       },
-    data:this.props.data,
-    labels:this.props.labels
     }
   }
-
-
-
-  // componentDidMount(){
-  //   const {data} = this.props
-  //   console.log(data)
-  //   const {dataPolar} = this.state
-  //   const dataPolarCopy = dataPolar
-  //   console.log(dataPolarCopy.datasets[0].data)
-  //   dataPolarCopy.datasets[0].data = data
-  //   console.log(dataPolarCopy)
-  //   console.log(dataPolarCopy.datasets[0].data)
-  //   // this.setState({ dataPolar: dataPolarCopy});
-  // }
+  
 
   render() {
     console.log('data', this.props.data)
+    console.log('animation', this.props.animation)
     console.log('labels', this.props.labels)
-    console.log(this.state.dataPolar)
+    console.log(this.state.options)
     return (
       <div>
-        <Polar data={this.state.dataPolar} options={this.state.options} />
+        <Polar width='100' height='55' data={this.state.dataPolar} options={this.state.options} />
       </div>
     );
   }

@@ -14,7 +14,6 @@ class AssessmentCard extends Component {
 
   render() {
     const {currentMember, assessments, membersData, user, checkpointId, teamId } = this.props
-    console.log('this.props', this.props)
     return (
       <div>
         {
