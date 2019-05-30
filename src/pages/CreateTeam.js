@@ -31,7 +31,6 @@ class CreateTeam extends Component {
   handleChange = (event) => {  
     const {name, value} = event.target;
     this.setState({[name]: value});
-    // console.log('state', this.state)
   }
 
   handleChangeGrowthModel = (event) => {  
@@ -47,37 +46,28 @@ class CreateTeam extends Component {
     const membersCopy = this.state.members;
     const membersNameCopy = this.state.membersName;
     const listOfUsersCopy = this.state.listOfUsers;
-    // console.log('listOfUsersCopy', listOfUsersCopy)
 
     listOfUsersCopy.forEach((userObj, index) => {
-      // console.log('userObj.id',userObj._id)
-      // console.log('user.data[0]._id',user.data[0]._id)
       if(userObj._id === user.data[0]._id) {
         listOfUsersCopy.splice(index, 1);
       }
     })
     membersCopy.push(user.data[0]._id)
     membersNameCopy.push(`${user.data[0].firstName}`)
-    console.log('user.data[0]',user.data[0])
     this.setState({
       members: membersCopy,
       membersName: membersNameCopy,
       currentAddedMember: '',
       listOfUsers: listOfUsersCopy,
     })
-    // console.log('listOfUsers2',this.state.listOfUsers)
   }
 
   addMember = (event) =>{
     event.preventDefault()
     const {value} = event.target;
     const {members} = this.state
-    // console.log(value)
-    // console.log('listOfUsers1',this.state.listOfUsers)
     userService.getOneByEmail(value)
       .then((user)=>{
-
-        console.log(members)
         let exists = false;
         if(members.length){
             members.forEach((memberId)=>{
@@ -99,14 +89,10 @@ class CreateTeam extends Component {
     const {name, members, growthModel, checkpoints } = this.state;
     teamsService.createTeam({name, members, growthModel, checkpoints})
       .then((data)=>{
-        console.log('new Team members:', data.members)
-        console.log('new Team:', data)
         data.members.forEach((memberId)=>{
           const teamId = data._id
-          console.log(memberId)
-          userService.updateOne(memberId, teamId )
+          userService.updateTheUserTeam(memberId, teamId )
             .then((result)=>{
-            console.log(result)
             this.props.history.push('/profile');
             })
         });
@@ -136,9 +122,6 @@ class CreateTeam extends Component {
 
   render() {
     const {name, membersName, growthModelName, listOfUsers, listOfGrowthModel, currentAddedMember, user} = this.state
-    console.log(user)
-
-    // console.log(listOfUsers)
 
     return (
       <div className='container-fluid content'>
@@ -218,13 +201,6 @@ class CreateTeam extends Component {
                 <button className='btn btn-block btn-primary btn-lg' type='submit'>Create the team!</button>
               </form>                            
             </div>
-          
-          
-          
-          
-          
-          
-          
           </div>
         </div>
       </div>

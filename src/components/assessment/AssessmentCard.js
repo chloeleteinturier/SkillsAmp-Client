@@ -46,12 +46,11 @@ export default class AssessmentCard extends Component {
 
   render() {
     const {growthCompass} = this.props
-    // const {theGrowthCompass} = this.state
+
     return (
       <div className="container container-block pt-4 assessment-form-wrap">
         <form className="needs-validation center-form assessment-form">
 
-        {/* <h3>{growthCompass.name}</h3> */}
         {
           growthCompass.indicators.map((oneIndicator, index)=>{
             return (

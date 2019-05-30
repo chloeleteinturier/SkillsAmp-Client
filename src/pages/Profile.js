@@ -16,26 +16,8 @@ class Profile extends Component {
     this.state={
       user: {},
       growthModel: {},
-      data:[
-        2.2,
-        3.1,
-        1,
-        1.8,
-        3.1,
-        0.5,
-        2.8,
-        2,
-      ],
-      labels: [
-        'Javasctipt',
-        'Node.js',
-        'Express.js',
-        'HTML',
-        'CSS',
-        'React',
-        'Communication',
-        'Emphaty',
-      ]
+      data:[],
+      labels: []
     }
   }
 
@@ -49,66 +31,33 @@ class Profile extends Component {
           growthModelService.getOne(oneUser.team.growthModel)
             .then((oneGrowthModel)=>{
               this.setState({ growthModel: oneGrowthModel});
+              if(this.state.user.currentGrowthCompass){
+                this.fetchLabels()
+                this.fetchAssessedLevelData()
+              }
             })
         }
       })  
-    console.log(this.state.user)
   }
 
+  fetchLabels = () =>{
+    const {user} = this.state
+    const labels = user.currentGrowthCompass.growthCompass.indicators.map((oneIndicator)=>{
+      return oneIndicator.name
+    })
+    this.setState({labels})
+  }
+
+  fetchAssessedLevelData = () =>{
+    const {user} = this.state
+    const data = user.currentGrowthCompass.growthCompass.indicators.map((oneIndicator)=>{
+      return oneIndicator.assessedLevel
+    })
+    this.setState({data, readyToMount:true})
+  }
 
   render() {
     const { user, growthModel, labels, data} = this.state
-    console.log('this.props', this.props)
-    console.log('this.state', this.state)
-    console.log('user', user)
-    console.log('growthModel', growthModel)
-    console.log('user.team', user.team)
-
-
-    // const data = {
-    //   labels: [
-    //     'Red',
-    //     'Green',
-    //     'Yellow'
-    //   ],
-    //   datasets: [{
-    //     data: [150, 30, 245],
-    //     backgroundColor: [
-    //     '#FF6384',
-    //     '#36A2EB',
-    //     '#FFCE56'
-    //     ],
-    //     hoverBackgroundColor: [
-    //     '#FF6384',
-    //     '#36A2EB',
-    //     '#FFCE56'
-    //     ]
-    //   }]
-    // };
-
-    // const data=[
-    //   2.2,
-    //   3.1,
-    //   1,
-    //   1.8,
-    //   3.1,
-    //   0.5,
-    //   2.8,
-    //   2,
-    // ]
-
-    // const labels = [
-    //   'Javasctipt',
-    //   'Node.js',
-    //   'Express.js',
-    //   'HTML',
-    //   'CSS',
-    //   'React',
-    //   'Communication',
-    //   'Emphaty',
-    // ]
-
-
     return (
       <div className="container-fluid content">
         <div className="row">
@@ -121,7 +70,17 @@ class Profile extends Component {
                 <h5 className='text-center mt-4 mb-4'><Link to='/create-team'>Create a team to start</Link></h5>
               }
               <div className="container container-block">
-                <PolarChart data={data} labels={labels} animation={true} displayLabel={true} height={50} />
+                {
+                  data.length ?
+                  <PolarChart data={data} labels={labels} animation={true} displayLabel={true} height={50} />
+                  :
+                  <div className="container container-block pt-4 mb-4 d-flex flex-wrap others-assessments">
+                      <div className="alert alert-warning w-100 text-center" role="alert">
+                          You don't have skills wheel yet, you need to do your first skills assessment.
+                      </div>                              
+                  </div>  
+
+                }
               </div>
         </div>
 
