@@ -66,10 +66,6 @@ class PolarChart extends React.Component {
   
 
   render() {
-    console.log('data', this.props.data)
-    console.log('animation', this.props.animation)
-    console.log('labels', this.props.labels)
-    console.log(this.state.options)
     return (
       <div>
         <Polar width={100} height={this.props.height} data={this.state.dataPolar} options={this.state.options} />

@@ -23,8 +23,13 @@ class UsersService {
     .then((data)=> data )
   }
 
-  updateOne = (id, teamId ) =>{
+  updateTheUserTeam = (id, teamId ) =>{
     return this.auth.put(`/user/${id}`, {team: teamId})
+    .then((data)=> data )
+  }
+
+  updateUserCurrentCompass = (id, CurrentFinalCompassId ) =>{
+    return this.auth.put(`/user/${id}`, {currentGrowthCompass: CurrentFinalCompassId} )
     .then((data)=> data )
   }
 

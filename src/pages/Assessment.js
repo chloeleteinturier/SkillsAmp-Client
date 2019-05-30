@@ -101,14 +101,11 @@ class Assessment extends Component {
         return oneAssessment
       }
     })
-    console.log('checkpoint', checkpoint)
     const checkpointUpdated = checkpoint
     checkpointUpdated.assessments =assessmentsUpdated
 
-    console.log('checkpointUpdated', checkpointUpdated)
     checkpointService.updateOne(checkpoint._id, checkpointUpdated)
       .then((result)=>{
-        console.log(result)
         this.props.history.push(`/myTeam/${teamId}/checkpoint/${checkpointId}`);
       })
   
@@ -121,14 +118,8 @@ class Assessment extends Component {
     }
 
   render() {
-    let { theAssessment, memberEvaluated, data, labels, user } = this.state
-    // const { checkpoint} = this.state
-
+    const { theAssessment, memberEvaluated, data, labels, user } = this.state
     const { teamId, checkpointId } = this.props.match.params
-
-    console.log(this.state.readyToMount)
-
-    console.log(data)
 
     return (
       <div className="container-fluid content">
@@ -143,7 +134,7 @@ class Assessment extends Component {
             {
               memberEvaluated._id === user._id ?
               <div>
-                <h1 className="h4 text-center mt-4 mb-4"><span className="font-weight-bold">My own</span> assessment</h1>
+                <h1 className="h4 text-center mt-4 mb-4"><span className="font-weight-bold">My self</span> assessment</h1>
                 <p className='text-center text-muted mb-0'>You are evaluating yourself with the growth model: <span className="font-weight-bold">{theAssessment.growthCompass.name}</span> </p>
                 <p className="text-center mt-0"><Link to={`/myTeam/${teamId}/checkpoint/${checkpointId}`}>Back to the checkpoint</Link></p>
               </div>
@@ -170,15 +161,6 @@ class Assessment extends Component {
           :
           null
         }
-
-
-
-
-
-
-
-
-
         </div>
       </div>
     )

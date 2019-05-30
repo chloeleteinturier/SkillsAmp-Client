@@ -72,25 +72,15 @@ class FinalAssessment extends Component {
 
   updateTheAssessment = (theGrowthCompass) =>{
     const { teamId, checkpointId } = this.props.match.params
-    const {theAssessment, checkpoint} = this.state
+    const {finalAssessment,} = this.state
 
-    const assessmentsUpdated = checkpoint.assessments.map((oneAssessment)=>{
-      if(oneAssessment._id === theAssessment._id){
-        oneAssessment.growthCompass = theGrowthCompass
-        oneAssessment.done = true
-        return oneAssessment
-      } else {
-        return oneAssessment
-      }
-    })
-    console.log('checkpoint', checkpoint)
-    const checkpointUpdated = checkpoint
-    checkpointUpdated.assessments =assessmentsUpdated
+    const finalAssessmentUpdated = finalAssessment
+    finalAssessmentUpdated.growthCompass = theGrowthCompass
+    finalAssessmentUpdated.done = true
 
-    console.log('checkpointUpdated', checkpointUpdated)
-    checkpointService.updateOne(checkpoint._id, checkpointUpdated)
+    finalCompassService.updateOne(finalAssessment._id, finalAssessmentUpdated)
       .then((result)=>{
-        console.log(result)
+        userService.updateUserCurrentCompass(finalAssessment.evaluated._id, finalAssessment._id)
         this.props.history.push(`/myTeam/${teamId}/checkpoint/${checkpointId}`);
       })
   
@@ -104,8 +94,6 @@ class FinalAssessment extends Component {
 
 
   render() {
-    console.log('this.state', this.state)
-    console.log('this.props', this.props)
     const {user, checkpoint, finalAssessment, data, labels} = this.state
     return (
       <div className="container-fluid content">
@@ -113,8 +101,15 @@ class FinalAssessment extends Component {
           <Navbar theUser={user} />
 
           <div className="col- col-sm- col-md- col-lg-10 col-xl- mainview pt-3 pb-3">
-
-            <h1 className="h4 text-center mt-4 mb-4"><span className="font-weight-bold">My final</span> assessment</h1>
+            {
+              finalAssessment.evaluated ?
+                finalAssessment.evaluated._id === this.props.user._id ?
+                  <h1 className="h4 text-center mt-4 mb-4"><span className="font-weight-bold">My final</span> assessment</h1>
+                  :
+                  <h1 className="h4 text-center mt-4 mb-4"><span className="font-weight-bold">{finalAssessment.evaluated.firstName} {finalAssessment.evaluated.lastName} final</span> assessment</h1>
+              :
+              null
+            }
             <div className="container container-block pt-4 mb-4 d-flex flex-wrap others-assessments">
 
               {
@@ -122,7 +117,7 @@ class FinalAssessment extends Component {
                 checkpoint.assessments.map((oneAssessment)=>{
                   if(oneAssessment.evaluated === user._id){
                     return(
-                    <DisplayTeamMembers assessment={oneAssessment}/>
+                    <DisplayTeamMembers key={oneAssessment._id} assessment={oneAssessment}/>
                     )}
                   else{
                     return null
