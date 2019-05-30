@@ -41,9 +41,7 @@ class Assessment extends Component {
           })
           .catch((err) => console.log(err));
       })
-
-   
-    }
+  }
   
   fetchTheAssessment = () =>{
     const { assessmentId } = this.props.match.params
@@ -148,20 +146,21 @@ class Assessment extends Component {
                 <h1 className="h4 text-center mt-4 mb-4"><span className="font-weight-bold">My own</span> assessment</h1>
                 <p className='text-center text-muted mb-0'>You are evaluating yourself with the growth model: <span className="font-weight-bold">{theAssessment.growthCompass.name}</span> </p>
                 <p className="text-center mt-0"><Link to={`/myTeam/${teamId}/checkpoint/${checkpointId}`}>Back to the checkpoint</Link></p>
-                <AssessmentCard growthCompass={theAssessment.growthCompass} updateTheAssessment={this.updateTheAssessment} updateTheData={this.updateTheData}/>
               </div>
               :
               <div>
                 <h1 className="h4 text-center mt-4 mb-4"><span className="font-weight-bold">{memberEvaluated.firstName} {memberEvaluated.lastName}</span> assessment</h1>
                 <p className='text-center text-muted mb-0'>You are evaluating {memberEvaluated.firstName} {memberEvaluated.lastName} with the growth model: '{theAssessment.growthCompass.name}' </p>
                 <p className="text-center mt-0"><Link to={`/myTeam/${teamId}/checkpoint/${checkpointId}`}>Back to the checkpoint</Link></p>
-                <AssessmentCard growthCompass={theAssessment.growthCompass} updateTheAssessment={this.updateTheAssessment} updateTheData={this.updateTheData}/>
               </div>
             }
             {
               this.state.readyToMount ?
-              <div className="container container-block pt-4 mb-4">
-                <PolarChart data={data} labels={labels} animation={false} />
+              <div className="d-flex flex-column flex-sm-column flex-md-row flex-lg-row flex-xl-row">
+                <AssessmentCard growthCompass={theAssessment.growthCompass} updateTheAssessment={this.updateTheAssessment} updateTheData={this.updateTheData}/>
+                <div className="container container-block pt-4 assessment-wheel">
+                  <PolarChart data={data} labels={labels} animation={false} displayLabel={true} height={50}/>
+                </div>
               </div>
               :
               null

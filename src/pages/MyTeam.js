@@ -24,7 +24,7 @@ class MyTeam extends Component {
       checkpoints: [],
       user: {},
       // assessments:[],
-      finalAssessmentsId: []
+      // finalAssessmentsId: []
     }
   }
 
@@ -57,64 +57,51 @@ class MyTeam extends Component {
         return {evaluator, evaluated, growthCompass:growthCompass }
       })
     })
-    console.log(assessments)
     return assessments;
   }
 
   doCreateFinalCompass = (membersID) => {
     const {id} = this.props.match.params
     const finalAssessmentsPromises = membersID.map((OneMemberId)=>{
-      
       let oneFinalAssessmentId
       let evaluated = OneMemberId;
       let growthCompass = this.state.growthModel
       let team = id
-
       return finalCompassService.createFinalCompass(evaluated , growthCompass, team )
         .then((finalCompass)=>{
-          console.log("finalCompass",finalCompass)
           oneFinalAssessmentId = finalCompass._id
-          console.log("one", oneFinalAssessmentId)
           return oneFinalAssessmentId
         })
     })
-
     Promise.all(finalAssessmentsPromises)
       .then((finalAssessments) => {
-        console.log("final",finalAssessments)
+        console.log("finalAssessments",finalAssessments)
+        const assess = this.createAssessments(this.state.members)
+        console.log('assess', assess)
+
+        checkpointService.createCheckpoint(assess, finalAssessments)  //add ,finalAssessments  after assess
+          .then((data)=>{
+            console.log('new checkpoint:', data)
+            this.state.checkpoints.unshift(data._id)
+            this.setState(this.state.checkpoints)
+
+            teamsService.updateOne(this.state._id, this.state.checkpoints )
+              .then((result)=>{
+              console.log(result)
+            })
+            this.props.history.push(`/myTeam/${this.state._id}/checkpoint/${data._id}`);
+          })
+          .catch( error => console.log(error) )
+
       })
-    // create the finalAssessments models
-    // return an Array of finalAssessment Id, in the state
-    // this.createAssessments(members)
-    // checkpointService.createCheckpoint(assess, finalAssessment)
-
   }
-
 
 
   handleCheckpointCreation = (event) => {
     event.preventDefault();
-    const {checkpoints, _id, members} = this.state;
+    const {members} = this.state;
 
-    // this.doCreateFinalCompass(members)
-
-    const assess = this.createAssessments(members)
-    this.setState({assessments: assess})
-
-    checkpointService.createCheckpoint(assess)  //add ,finalAssessment  after assess
-      .then((data)=>{
-        console.log('new checkpoint:', data)
-        checkpoints.unshift(data._id)
-        this.setState(checkpoints)
-
-        teamsService.updateOne(_id, checkpoints )
-          .then((result)=>{
-          console.log(result)
-        })
-        this.props.history.push(`/myTeam/${_id}/checkpoint/${data._id}`);
-      })
-      .catch( error => console.log(error) )
-      
+    this.doCreateFinalCompass(members)      
   }
 
   render() {

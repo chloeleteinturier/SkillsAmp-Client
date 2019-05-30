@@ -21,7 +21,7 @@ class Checkpoint extends Component {
         date: '',
         assessments: [],
         currentCheckpoint: true,
-        finalAssessment: [],
+        finalAssessments: [],
       }
   }
 
@@ -71,9 +71,8 @@ class Checkpoint extends Component {
   }
 
   render() {
-    const { team, assessments, user, date } = this.state
+    const { team, assessments, user, date, finalAssessments } = this.state
     const {checkpointId, teamId} = this.props.match.params
-    console.log('this.state',this.state)
 
     return (
       <div className="container-fluid content">
@@ -88,7 +87,7 @@ class Checkpoint extends Component {
 
               {
               team.members ?
-              <CheckpointInfoCard assessments={assessments} members={team.members} me={this.props.user} teamId={teamId} checkpointId={checkpointId}/>
+              <CheckpointInfoCard assessments={assessments} finalAssessments={finalAssessments} members={team.members} me={this.props.user} teamId={teamId} checkpointId={checkpointId}/>
               :
               null
               }
