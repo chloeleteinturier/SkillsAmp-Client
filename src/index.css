@@ -413,10 +413,31 @@ a.list-group-item-action:hover {
   display: block;
 }
 
-@media (min-width: 576px) {
-  .assessment-form .form-group {
-      width: 46%;
-      display: inline-block;
-      margin: 0 1.5%;
-  }
+.mate-assess-card {
+  border: none;
+  width: 13rem;
+  margin: 0 auto;
+}
+
+.others-assessments, .assessment-form-wrap, .assessment-wheel {
+   max-width: 100% !important;
+}
+
+.assessment-form-wrap {
+  width: 100%;
+}
+
+.assessment-wheel {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .assessment-form-wrap {
+      width: 19%;
+      margin-right:1%;
+   }
+  
+   .assessment-wheel {
+      width: 80%;
+   }
 }

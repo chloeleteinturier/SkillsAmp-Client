@@ -48,7 +48,7 @@ export default class AssessmentCard extends Component {
     const {growthCompass} = this.props
     // const {theGrowthCompass} = this.state
     return (
-      <div className="container container-block pt-4 pb-4">
+      <div className="container container-block pt-4 assessment-form-wrap">
         <form className="needs-validation center-form assessment-form">
 
         {/* <h3>{growthCompass.name}</h3> */}
@@ -63,7 +63,7 @@ export default class AssessmentCard extends Component {
           })
         }
 
-          <button className="btn btn-block btn-primary btn-lg" type="submit" onClick={(event)=>this.handleFormSubmit(event)}>Save assessment</button>
+          <button className="btn btn-block btn-primary btn-lg mt-3" type="submit" onClick={(event)=>this.handleFormSubmit(event)}>Save</button>
         </form>
       </div>
     )

@@ -52,7 +52,7 @@ class PolarChart extends React.Component {
 						fontSize: 14,
 						fontColor: '#212121',
             fontFamily: 'Nunito',
-						display: true,
+						display: this.props.displayLabel,
 					},
 					reverse: false
 				},
@@ -72,7 +72,7 @@ class PolarChart extends React.Component {
     console.log(this.state.options)
     return (
       <div>
-        <Polar width='100' height='55' data={this.state.dataPolar} options={this.state.options} />
+        <Polar width={100} height={this.props.height} data={this.state.dataPolar} options={this.state.options} />
       </div>
     );
   }
