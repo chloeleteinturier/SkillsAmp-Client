@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 import { withAuth } from './../providers/AuthProvider';
 
@@ -7,8 +8,31 @@ import { withAuth } from './../providers/AuthProvider';
 import mediumLogo from './../assets/logo_skillsamp_M.png'
 
 class Navbar extends Component {
+  constructor(props){
+    super(props)
+    this.state={
+
+    }
+  }
   render() {
     const {theUser, logout} = this.props
+
+    let createTeamStyle = classNames({
+      'nav-item': true,
+      active: this.props.path === '/create-team'
+    })
+
+    let profileStyle = classNames({
+      'nav-item': true,
+      active: this.props.path === '/profile'
+    })
+
+    let myTeamStyle = classNames({
+      'nav-item': true,
+      active: this.props.path === '/myteam/:id'
+    })
+
+
     return (
       <div className="col- col-sm- col-md- col-lg-2 col-xl- navview p-0">
 
@@ -21,18 +45,18 @@ class Navbar extends Component {
           </Link>
           <div className="collapse navbar-collapse sidebar w-100">
             <ul id='main-nav' className="flex-column navbar-nav w-100 justify-content-between pt-2">
-              <li className="nav-item active">
+              <li className={profileStyle}>
                 <Link to='/' className="nav-link">My skills wheel</Link>
               </li>
               {
               theUser.team ?
-              <li className="nav-item">
+              <li className={myTeamStyle}>
                 <Link to={`/myteam/${theUser.team._id}`} className="nav-link" >My team</Link>
               </li>
               :
               null
               }
-              <li className="nav-item">
+              <li className={createTeamStyle}>
                 <Link to='/create-team' className="nav-link">Create team</Link>
               </li>     
               <li className="nav-item">

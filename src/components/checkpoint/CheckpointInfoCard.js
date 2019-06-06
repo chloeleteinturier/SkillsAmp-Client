@@ -41,8 +41,6 @@ export default class CheckpointInfoCard extends Component {
   render() {
     const {membersData, allDone,} = this.state
     const {assessments, checkpointId, teamId, finalAssessments} = this.props
-    console.log('this.state',this.state)
-    console.log('this.props', this.props)
     return (
       <div className="container container-block pt-4 mb-4 d-flex flex-wrap">
         {
@@ -60,12 +58,8 @@ export default class CheckpointInfoCard extends Component {
                   {
                     allDone?
                     finalAssessments.map((oneFinalAssessment)=>{
-                      console.log('this is true')
-                      console.log('oneFinalAssessment.evaluated ', oneFinalAssessment.evaluated )
-                      console.log('oneMember._id ', oneMember._id)
                       
                       if(oneFinalAssessment.evaluated === oneMember._id){
-                        console.log('this is true')
                         return(
                           <Link to={`/myTeam/${teamId}/checkpoint/${checkpointId}/final-assessment/${oneFinalAssessment._id}`} key={oneFinalAssessment._id} className="btn btn-primary mb-3">Final assessment</Link>
                         )

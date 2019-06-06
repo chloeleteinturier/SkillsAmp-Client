@@ -33,10 +33,10 @@ class App extends Component {
             <PrivateRoute exact path="/profile" component={Profile} />
             <PrivateRoute path='/add-model' component={AddModel} />
             <PrivateRoute path='/create-team' component={CreateTeam} />
-            <PrivateRoute exact path='/myTeam/:id' component={MyTeam} />
-            <PrivateRoute exact path='/myTeam/:teamId/checkpoint/:checkpointId' component={Checkpoint} />
-            <PrivateRoute path='/myTeam/:teamId/checkpoint/:checkpointId/assessment/:assessmentId' component={Assessment} />
-            <PrivateRoute path='/myTeam/:teamId/checkpoint/:checkpointId/final-assessment/:finalAssessmentId' component={FinalAssessment} />
+            <PrivateRoute exact path='/myteam/:id' component={MyTeam} />
+            <PrivateRoute exact path='/myteam/:teamId/checkpoint/:checkpointId' component={Checkpoint} />
+            <PrivateRoute path='/myteam/:teamId/checkpoint/:checkpointId/assessment/:assessmentId' component={Assessment} />
+            <PrivateRoute path='/myteam/:teamId/checkpoint/:checkpointId/final-assessment/:finalAssessmentId' component={FinalAssessment} />
           </Switch>
           <Footer />
         </div>

@@ -44,10 +44,12 @@ export default class AuthProvider extends Component {
   logoutUser = () => {
     return authService.logout()
       .then(() => {
+        console.log(this.state)
         this.setState({ 
           isLogged: false,
           user: {},
         });
+        console.log(this.state)
       })
       .catch( error => console.log(error))
   }

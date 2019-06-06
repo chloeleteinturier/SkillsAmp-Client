@@ -29,7 +29,6 @@ class Checkpoint extends Component {
     const { checkpointId } = this.props.match.params;
     checkpointService.getOne(checkpointId)
       .then( (checkpoint) =>{
-        console.log('checkpoint',checkpoint)
         this.setState(checkpoint);
       })
       .catch((err) => console.log(err));
@@ -79,7 +78,7 @@ class Checkpoint extends Component {
 
         <div className="row">
 
-          <Navbar theUser={user} />
+          <Navbar theUser={user} path={this.props.match.path}/>
 
           <div className="col- col-sm- col-md- col-lg-10 col-xl- mainview pt-3 pb-3">
             <h1 className="h4 text-center mt-4 mb-2">Checkpoint: <strong className="font-weight-bold">{this.getTheDate(date)}</strong></h1>
