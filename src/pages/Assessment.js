@@ -106,7 +106,7 @@ class Assessment extends Component {
 
     checkpointService.updateOne(checkpoint._id, checkpointUpdated)
       .then((result)=>{
-        this.props.history.push(`/myTeam/${teamId}/checkpoint/${checkpointId}`);
+        this.props.history.push(`/myteam/${teamId}/checkpoint/${checkpointId}`);
       })
   
     }
@@ -126,7 +126,7 @@ class Assessment extends Component {
 
         <div className="row">
 
-          <Navbar theUser={user} />
+          <Navbar theUser={user} path={this.props.match.path} />
 
         {
           theAssessment._id ?
@@ -136,13 +136,13 @@ class Assessment extends Component {
               <div>
                 <h1 className="h4 text-center mt-4 mb-4"><span className="font-weight-bold">My self</span> assessment</h1>
                 <p className='text-center text-muted mb-0'>You are evaluating yourself with the growth model: <span className="font-weight-bold">{theAssessment.growthCompass.name}</span> </p>
-                <p className="text-center mt-0"><Link to={`/myTeam/${teamId}/checkpoint/${checkpointId}`}>Back to the checkpoint</Link></p>
+                <p className="text-center mt-0"><Link to={`/myteam/${teamId}/checkpoint/${checkpointId}`}>Back to the checkpoint</Link></p>
               </div>
               :
               <div>
                 <h1 className="h4 text-center mt-4 mb-4"><span className="font-weight-bold">{memberEvaluated.firstName} {memberEvaluated.lastName}</span> assessment</h1>
                 <p className='text-center text-muted mb-0'>You are evaluating {memberEvaluated.firstName} {memberEvaluated.lastName} with the growth model: '{theAssessment.growthCompass.name}' </p>
-                <p className="text-center mt-0"><Link to={`/myTeam/${teamId}/checkpoint/${checkpointId}`}>Back to the checkpoint</Link></p>
+                <p className="text-center mt-0"><Link to={`/myteam/${teamId}/checkpoint/${checkpointId}`}>Back to the checkpoint</Link></p>
               </div>
             }
             {

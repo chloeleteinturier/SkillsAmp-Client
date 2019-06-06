@@ -27,7 +27,7 @@ class AssessmentCard extends Component {
               })
               if(assessment.evaluator === user._id && assessment.done === false){
                 return (
-                  <Link to={`/myTeam/${teamId}/checkpoint/${checkpointId}/assessment/${assessment._id}`} key={assessment._id} className="btn btn-secondary mb-3">Do my assessment</Link>
+                  <Link to={`/myteam/${teamId}/checkpoint/${checkpointId}/assessment/${assessment._id}`} key={assessment._id} className="btn btn-secondary mb-3">Do my assessment</Link>
               )
 
               }else if(assessment.done === false){

@@ -38,7 +38,6 @@ export default class AssessmentCard extends Component {
   }
 
   handleFormSubmit = (event) => {
-    // console.log(event)
     event.preventDefault();
     const {theGrowthCompass} = this.state
     this.props.updateTheAssessment(theGrowthCompass); 	

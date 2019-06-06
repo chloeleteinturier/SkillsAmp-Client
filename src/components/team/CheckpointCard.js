@@ -24,7 +24,6 @@ export default class CheckpointCard extends Component {
 
   render() {
     const {team} = this.props
-    console.log(' this.props.team',team)
     return (
         <div className="container container-block pt-4 mb-4">
           <h5 className="h5 mb-3">Assessment checkpoints</h5>
@@ -33,7 +32,7 @@ export default class CheckpointCard extends Component {
             team.checkpoints.map((oneCheckpoint)=>{
               return (
                 <div key={oneCheckpoint._id} className="list-group list-group-flush">
-                  <Link to={`/myTeam/${this.props.team._id}/checkpoint/${oneCheckpoint._id}`} className="list-group-item list-group-item-action flex-column align-items-start">
+                  <Link to={`/myteam/${this.props.team._id}/checkpoint/${oneCheckpoint._id}`} className="list-group-item list-group-item-action flex-column align-items-start">
                     <div className="d-flex w-100 justify-content-between">
                       <p className="mb-1"><strong className="font-weight-bold">{this.getTheDate(oneCheckpoint.date)}</strong></p>
                       {

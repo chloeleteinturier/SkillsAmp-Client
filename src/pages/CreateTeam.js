@@ -127,7 +127,7 @@ class CreateTeam extends Component {
       <div className='container-fluid content'>
         <div className='row'>
 
-          <Navbar theUser={user} />
+          <Navbar theUser={user} path={this.props.match.path}/>
 
           <div className="col- col-sm- col-md- col-lg-10 col-xl- mainview pt-3 pb-3">
             <h1 className="h4 text-center mb-5">Create a team</h1>

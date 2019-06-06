@@ -34,7 +34,6 @@ class MyTeam extends Component {
 
     teamsService.getOne(id)
       .then( (team) =>{
-        console.log('team', team)
         this.setState(team);
       })
       .catch((err) => console.log(err));
@@ -75,21 +74,17 @@ class MyTeam extends Component {
     })
     Promise.all(finalAssessmentsPromises)
       .then((finalAssessments) => {
-        console.log("finalAssessments",finalAssessments)
         const assess = this.createAssessments(this.state.members)
-        console.log('assess', assess)
 
         checkpointService.createCheckpoint(assess, finalAssessments)  //add ,finalAssessments  after assess
           .then((data)=>{
-            console.log('new checkpoint:', data)
             this.state.checkpoints.unshift(data._id)
             this.setState(this.state.checkpoints)
 
             teamsService.updateOne(this.state._id, this.state.checkpoints )
               .then((result)=>{
-              console.log(result)
             })
-            this.props.history.push(`/myTeam/${this.state._id}/checkpoint/${data._id}`);
+            this.props.history.push(`/myteam/${this.state._id}/checkpoint/${data._id}`);
           })
           .catch( error => console.log(error) )
 
@@ -106,14 +101,11 @@ class MyTeam extends Component {
 
   render() {
     const {name, members, checkpoints, user} = this.state
-    console.log('this.state.', this.state)
-    console.log(this.props.match)
-
 
     return (
     <div className="container-fluid content">
       <div className="row">
-        <Navbar theUser={user} />
+        <Navbar theUser={user} path={this.props.match.path} />
 
         <div className="col- col-sm- col-md- col-lg-10 col-xl- mainview pt-3 pb-3">
           <h1 className="h4 text-center mt-4 mb-4">My team: <strong className="font-weight-bold">{name}</strong></h1>

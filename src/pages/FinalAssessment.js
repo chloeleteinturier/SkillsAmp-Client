@@ -81,7 +81,7 @@ class FinalAssessment extends Component {
     finalCompassService.updateOne(finalAssessment._id, finalAssessmentUpdated)
       .then((result)=>{
         userService.updateUserCurrentCompass(finalAssessment.evaluated._id, finalAssessment._id)
-        this.props.history.push(`/myTeam/${teamId}/checkpoint/${checkpointId}`);
+        this.props.history.push(`/myteam/${teamId}/checkpoint/${checkpointId}`);
       })
   
     }
@@ -98,7 +98,7 @@ class FinalAssessment extends Component {
     return (
       <div className="container-fluid content">
         <div className="row">
-          <Navbar theUser={user} />
+          <Navbar theUser={user} path={this.props.match.path}/>
 
           <div className="col- col-sm- col-md- col-lg-10 col-xl- mainview pt-3 pb-3">
             {

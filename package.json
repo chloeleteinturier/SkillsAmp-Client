@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "chart.js": "^2.8.0",
+    "classnames": "^2.2.6",
     "d3-scale": "^3.0.0",
     "react": "^16.5.2",
     "react-chartjs-2": "^2.7.6",

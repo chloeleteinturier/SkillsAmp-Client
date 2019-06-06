@@ -33,7 +33,7 @@ export default class TeamCard extends Component {
     const {membersData} = this.state
     return (
       <div>
-        <Link to={`/myTeam/${team._id}`}>
+        <Link to={`/myteam/${team._id}`}>
           <h3>My Team: {team.name}</h3>
         </Link>
         {
