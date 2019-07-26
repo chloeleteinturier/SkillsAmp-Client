@@ -111,14 +111,7 @@ class EditProfile extends Component {
                   Please, enter your new password.
                 </div>                              
               </div>
-              <div className="form-group form-check">
-                <input type="checkbox" className="form-check-input" id="terms" required />
-                <label className="form-check-label small" htmlFor="terms">I agree to SkillsAmp’s <a href="#/">Terms of Service</a></label>
-                <div className="invalid-feedback">
-                  You must agree before submitting.
-                </div>
-              </div>
-              <button className="btn btn-block btn-primary btn-lg" type="submit">Create new account</button>
+              <button className="btn btn-block btn-primary btn-lg" type="submit">Save changes</button>
             </form>
           </main>
       </div>
