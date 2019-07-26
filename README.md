@@ -21,7 +21,6 @@ During a session, the user will have to assess himself and the other members of 
 
 
 ## Backlog
-- Landing page
 - Task board
 - Add comment during the assessments
 
@@ -34,11 +33,12 @@ During a session, the user will have to assess himself and the other members of 
  `/` | HomePageComponent| public/user | Link to login and signup in public and user's dashboard if user |
 | `/signup` | SignupPageComponent| anon only| signup form, link to login, navigate to homepage after signup|
 | `/login` | LoginPageComponent | anon only |login form, link to signup, navigate to homepage after login |
+| `/edit-profile` | EditProfilePageComponent| user only| form to update the user's data|
 | `/add-team` | AddTeamPageComponent| user only | form to add team search bar by name for users and for growth model navigate to team page after creation|
 | `/add-team` | AddTeamPageComponent| user only | update the users member of the new team |
 | `/add-model` | AddGrowthModelPageComponent | user only | creates a new growth model, navigates to profile page after creation |
 | `/add-model` | AddGrowthModelPageComponent | user only | update one of my growth model, navigates to profile page after update |
-| `/add-model` | AddTeamPageComponent| user only | delete one of my growth model|
+| `/add-model` | AddGrowthModelPageComponent| user only | delete one of my growth model|
 | `/team/:id` | TeamPageComponent | user only | dashboard of the team with link to the sessions |
 | `/team/:id` | TeamPageComponent | user only | update the team in any changes |
 | `/team/:id/session:id` | SessionPageComponent | user only | create a new session |
@@ -125,15 +125,39 @@ During a session, the user will have to assess himself and the other members of 
 - Auth Service
   - auth.login(user)
   - auth.signup(user)
+  - auth.imageUpload(file)
   - auth.logout()
   - auth.me()
-  - auth.getUser() // synchronous
+
 - Team Service
-  - team.create(data)
-  - team.detail(id)
-  - team.addMember(id)
-  - team.addSession(id)
-  - team.edit(id)
+  - team.createTeam(data)
+  - team.getOne(id)
+  - team.updateOne(id, data)
+
+- User Service
+  - user.getAll()
+  - user.getOne(id)
+  - user.getOneByEmail(email)
+  - user.updateTheUserTeam(id, data)
+  - user.updateUserCurrentCompass(id, data)
+  - user.updateUser(id, data)
+
+- GrowthModel Service
+  - growthModel.getAll()
+  - growthModel.getOne(id)
+  - growthModel.getOneByName(name)
+
+- Checkpoint Service
+  - checkpoint.createCheckpoint(data)
+  - checkpoint.getAll()
+  - checkpoint.getOne(id)
+  - checkpoint.updateOne(data)
+
+- FinalCompass Service
+  - finalCompass.createFinalCompass(data)
+  - finalCompass.getAll()
+  - finalCompass.getOne(id)
+  - finalCompass.updateOne(id, data)
 
 
 # Server
