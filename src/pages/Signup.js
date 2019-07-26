@@ -145,7 +145,7 @@ class Signup extends Component {
                 Looks good!
               </div>
               <div className="invalid-feedback">
-                Please, enter a passworod.
+                Please, enter a password.
               </div>                              
             </div>
             <div className="form-group form-check">
