@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 import formService from './../lib/form-service.js';
+import userService from './../lib/users-service';
 
 import largeLogo from "./../assets/logo_skillsamp_L.png"
 
@@ -12,6 +13,7 @@ class Login extends Component {
   state = {
     email: "",
     password: "",
+    message: ''
   }
 
   handleFormSubmit = (event) => {
@@ -19,8 +21,19 @@ class Login extends Component {
     const { email, password } = this.state
 
     this.props.login({ email, password })
-      .then(() => {})
-      .catch( error => console.log(error) )
+      .then((data) => {
+        if(data === undefined){
+          userService.getOneByEmail(email)
+            .then((user)=> {
+              if (user.data.length ){
+                this.setState({message:'password incorrect'})
+              } else {
+                this.setState({message:'email doesn\'t exist'})
+              }
+            })
+        }
+      })
+      .catch( (error) => console.log(error))
   }
 
   handleChange = (event) => {  
@@ -33,7 +46,7 @@ class Login extends Component {
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, message } = this.state;
     return (
       <div className="cover-container text-center">
         <header className="landing-header p-4">
@@ -42,7 +55,13 @@ class Login extends Component {
         <main className="signin">
           <form className="needs-validation" onSubmit={this.handleFormSubmit} noValidate>
             <legend>Log in to SkillsAmp</legend>
-            <p>or <Link to='/signup' className="btn btn-secondary btn-sm ml-2 mr-2">Sign up free</Link>and get a new account</p>                       
+            <p>or <Link to='/signup' className="btn btn-secondary btn-sm ml-2 mr-2">Sign up free</Link>and get a new account</p>   
+            {
+              message.length ?
+              <p style={{color: 'red'}}>{message}</p>
+              :
+              null
+            }                    
             <div className="form-group">
               <span className="has-float-label">
                 <input className="form-control" id="email" type="email" placeholder="aryastark@gmail.com" name="email" value={email} onChange={this.handleChange} required />

@@ -35,13 +35,11 @@ class Signup extends Component {
     userService.getOneByEmail(email)
     .then((user)=>{
       if(user.data.length){
-        console.log(user.data)
         this.setState({message: 'email already exists'})
       } else {
-        console.log(this.state)
-          this.props.signup({password, firstName, lastName, email, photoUrl })
-          .then(() => {})
-          .catch( error => console.log(error) )
+        this.props.signup({password, firstName, lastName, email, photoUrl })
+        .then(() => {})
+        .catch( error => console.log(error) )
       }
     })
   }
@@ -53,7 +51,6 @@ class Signup extends Component {
 
     authService.imageUpload(uploadData)
     .then((photoUrl) => {
-      console.log('photoUrl', photoUrl)
       this.setState({
         photoUrl,
       })
@@ -64,7 +61,6 @@ class Signup extends Component {
 
   handleChange = (event) => {  
     event.preventDefault()
-    console.log(this.state)
     const {name, value} = event.target;
     this.setState({[name]: value, message:''});
   }
