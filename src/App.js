@@ -15,7 +15,7 @@ import MyTeam from './pages/MyTeam';
 import Checkpoint from './pages/Checkpoint';
 import Assessment from './pages/Assessment';
 import FinalAssessment from './pages/FinalAssessment';
-import EditProfile from './pages/EditProfile';
+// import EditProfile from './pages/EditProfile';
 
 
 
@@ -38,7 +38,7 @@ class App extends Component {
             <PrivateRoute exact path='/myteam/:teamId/checkpoint/:checkpointId' component={Checkpoint} />
             <PrivateRoute path='/myteam/:teamId/checkpoint/:checkpointId/assessment/:assessmentId' component={Assessment} />
             <PrivateRoute path='/myteam/:teamId/checkpoint/:checkpointId/final-assessment/:finalAssessmentId' component={FinalAssessment} />
-            <PrivateRoute path='/edit-profile' component={EditProfile} />
+            {/* <PrivateRoute path='/edit-profile' component={EditProfile} /> */}
           </Switch>
           <Footer />
         </div>

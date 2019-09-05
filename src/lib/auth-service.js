@@ -15,7 +15,6 @@ class AuthService {
 
   signup(user) {
     const { password, firstName, lastName, email, photoUrl } = user;
-    console.log(user)
     return this.auth.post('/auth/signup', { password, firstName, lastName, email, photoUrl})
       .then(({ data }) => data);
   }
@@ -23,7 +22,7 @@ class AuthService {
   login(user) {
     const { email, password } = user;
     return this.auth.post('/auth/login', {email, password})
-      .then(({ data }) => data);
+      .then(({ data }) => data)
   }
 
   logout() {
@@ -34,6 +33,12 @@ class AuthService {
   me(user) {
     return this.auth.get('/auth/me')
     .then(response => response.data)
+  }
+
+  checkPassword(body) {
+    const {email, password} = body
+    return this.auth.post('/auth/checkPassword', {email, password})
+    .then( response => response.data )
   }
 }
 

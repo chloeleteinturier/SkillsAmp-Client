@@ -59,9 +59,6 @@ class Profile extends Component {
   render() {
     const { user, growthModel, labels, data} = this.state
 
-    console.log('state',this.state)
-    console.log('props',this.props)
-
     return (
       <div className="container-fluid content">
         <div className="row">

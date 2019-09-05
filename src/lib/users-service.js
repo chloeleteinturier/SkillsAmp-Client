@@ -33,8 +33,8 @@ class UsersService {
     .then((data)=> data )
   }
 
-  updateUser = (id, userEdited ) =>{
-    return this.auth.put(`/user/${id}`, userEdited)
+  updateUser = (id, userUpdated ) =>{
+    return this.auth.put(`/user/edit/${id}`, userUpdated)
     .then((data)=> data )
   }
 

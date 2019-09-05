@@ -19,6 +19,7 @@ export const withAuth = (Comp) => {
               logout={authStore.logout}
               login={authStore.login}
               signup={authStore.signup}
+              checkPassword={authStore.checkPassword}
               {...this.props} />
           }}
         </Consumer>
@@ -44,12 +45,10 @@ export default class AuthProvider extends Component {
   logoutUser = () => {
     return authService.logout()
       .then(() => {
-        console.log(this.state)
         this.setState({ 
           isLogged: false,
           user: {},
         });
-        console.log(this.state)
       })
       .catch( error => console.log(error))
   }
@@ -65,11 +64,20 @@ export default class AuthProvider extends Component {
   signupUser = (body) => {
     return authService.signup(body)
       .then((user) => {
-        console.log(user)
         this.setUser(user);
       })
       .catch(error => console.log(error))
   }
+
+  checkPasswordUser = (body) => {
+    return authService.checkPassword(body)
+      .then((user) => {
+        return user
+      })
+      .catch(error => console.log(error))
+  }
+
+
 
   componentDidMount() {
     authService.me()
@@ -103,6 +111,7 @@ export default class AuthProvider extends Component {
               logout: this.logoutUser, 
               login: this.loginUser,
               signup: this.signupUser,
+              checkPassword: this.checkPasswordUser
             }}>
             {children}
           </Provider>    

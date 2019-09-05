@@ -32,10 +32,10 @@ class Navbar extends Component {
       active: this.props.path === '/myteam/:id'
     })
 
-    let editStyle = classNames({
-      'nav-item': true,
-      active: this.props.path === '/edit-profile'
-    })
+    // let editStyle = classNames({
+    //   'nav-item': true,
+    //   active: this.props.path === '/edit-profile'
+    // })
 
 
     return (
@@ -64,9 +64,9 @@ class Navbar extends Component {
               <li className={createTeamStyle}>
                 <Link to='/create-team' className="nav-link">Create team</Link>
               </li>     
-              <li className={editStyle}>
+              {/* <li className={editStyle}>
                 <Link to='/edit-profile' className="nav-link">Edit profile</Link>
-              </li>  
+              </li>   */}
               <li className="nav-item">
                 <div className="user-info text-center mb-5">
                   <div className="profile-pic m-auto">
