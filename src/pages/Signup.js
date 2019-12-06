@@ -51,9 +51,7 @@ class Signup extends Component {
 
     authService.imageUpload(uploadData)
     .then((photoUrl) => {
-      this.setState({
-        photoUrl,
-      })
+      this.setState({photoUrl});
     })
     .catch((error) => console.log(error))
   }
@@ -79,7 +77,7 @@ class Signup extends Component {
           <Link to='/'><img src={largeLogo} alt="Skillsamp" /></Link>
         </header>
         <main className="signin">
-          <form className="needs-validation" onSubmit={this.handleFormSubmit} noValidate>
+          <form className="needs-validation" onSubmit={this.handleFormSubmit} noValidate encType="multipart/form-data">
             <legend>Sign up with you email</legend>
             <p>or <Link to="/login" className="btn btn-secondary btn-sm ml-2 mr-2">Log in</Link>if you already have an account</p>
             {
