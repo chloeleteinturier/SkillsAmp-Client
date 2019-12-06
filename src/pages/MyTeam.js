@@ -35,6 +35,7 @@ class MyTeam extends Component {
     teamsService.getOne(id)
       .then( (team) =>{
         this.setState(team);
+
       })
       .catch((err) => console.log(err));
 
@@ -75,12 +76,12 @@ class MyTeam extends Component {
     Promise.all(finalAssessmentsPromises)
       .then((finalAssessments) => {
         const assess = this.createAssessments(this.state.members)
-
+        
         checkpointService.createCheckpoint(assess, finalAssessments)  //add ,finalAssessments  after assess
           .then((data)=>{
             this.state.checkpoints.unshift(data._id)
-            this.setState(this.state.checkpoints)
-
+            this.setState(this.state.checkpoints);
+            
             teamsService.updateOne(this.state._id, this.state.checkpoints )
               .then((result)=>{
             })

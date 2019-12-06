@@ -16,6 +16,7 @@ class Navbar extends Component {
   }
   render() {
     const {theUser, logout} = this.props
+    // console.log('theUser', theUser);
 
     let createTeamStyle = classNames({
       'nav-item': true,
