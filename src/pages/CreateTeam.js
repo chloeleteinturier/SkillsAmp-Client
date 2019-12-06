@@ -36,7 +36,7 @@ class CreateTeam extends Component {
   handleChangeGrowthModel = (event) => {  
     const {value} = event.target;
     growthModelService.getOneByName(value)
-      .then((OneGrowthModel)=>{
+      .then((OneGrowthModel)=>{          
         this.setState({growthModel: OneGrowthModel._id});
       })
     this.setState({growthModelName: value});
