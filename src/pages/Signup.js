@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { withAuth } from '../providers/AuthProvider';
 
 
-import formService from './../lib/form-service.js';
+import formService from './../lib/form-Service';
 import userService from './../lib/users-service';
 
 
@@ -31,27 +31,28 @@ class Signup extends Component {
     const lastName = this.state.lastName;
     const email = this.state.email;
     const photoUrl = this.state.photoUrl;
-
-    userService.getOneByEmail(email)
-    .then((user)=>{
-      if(user.data.length){
-        this.setState({message: 'email already exists'})
-      } else {
-        this.props.signup({password, firstName, lastName, email, photoUrl })
-        .then(() => {})
-        .catch( error => console.log(error) )
-      }
-    })
+    if(photoUrl.length){
+      userService.getOneByEmail(email)
+      .then((user)=>{
+        if(user.data.length){
+          this.setState({message: 'email already exists'})
+        } else {
+          this.props.signup({password, firstName, lastName, email, photoUrl })
+          .then(() => {})
+          .catch( error => console.log(error) )
+        }
+      })
+    }
   }
 
-  fileOnchange = (event) => {
+  fileOnchange = (event) => {    
     const file = event.target.files[0];
     const uploadData = new FormData()
     uploadData.append('photo', file)
 
     authService.imageUpload(uploadData)
     .then((photoUrl) => {
-      this.setState({photoUrl});
+      this.setState({photoUrl})
     })
     .catch((error) => console.log(error))
   }

@@ -5,7 +5,7 @@ import { withAuth } from './../providers/AuthProvider';
 import userService from './../lib/users-service';
 import growthModelService from './../lib/growthModel-service';
 import teamsService from './../lib/teams-service';
-import formService from './../lib/form-service.js';
+import formService from './../lib/form-Service';
 
 
 import Navbar from './../components/Navbar'
