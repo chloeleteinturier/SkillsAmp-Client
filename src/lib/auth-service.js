@@ -7,10 +7,12 @@ class AuthService {
       withCredentials: true // only beacause we want to share cookies with the backend server otherwise set it to false
     })
   }
+  
 
   imageUpload(file) {
     return this.auth.post('/auth/signup/image', file)
     .then(({data}) => data)
+    console.log('hobjk');
   }
 
   signup(user) {
