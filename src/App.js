@@ -23,7 +23,6 @@ import AuthProvider from './providers/AuthProvider';
 
 
 class App extends Component {
-  console.log('helloooo');
 
   render() {
     return (

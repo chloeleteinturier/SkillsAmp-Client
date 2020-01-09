@@ -11,8 +11,7 @@ class AuthService {
 
   imageUpload(file) {
     return this.auth.post('/auth/signup/image', file)
-    .then(({data}) => data)
-    console.log('hobjk');
+    .then(({data}) => data)    
   }
 
   signup(user) {
