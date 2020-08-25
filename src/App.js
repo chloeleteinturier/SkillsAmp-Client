@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {Switch} from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 
 import PrivateRoute from './components/PrivateRoute';
-import AnonRoute from './components/AnonRoute';
+import AnonRoute from './components/AnonRoute2';
 
 import LandingPage from './components/LandingPage';
 import Footer from './components/Footer';

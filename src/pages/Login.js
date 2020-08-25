@@ -8,6 +8,11 @@ import userService from './../lib/users-service';
 
 import largeLogo from "./../assets/logo_skillsamp_L.png"
 
+//Redux
+import { connect } from 'react-redux';
+import * as actions from './../redux/actions/actions'
+import authService from '../lib/auth-service';
+
 
 class Login extends Component {
   state = {
@@ -20,21 +25,29 @@ class Login extends Component {
     event.preventDefault();
     const { email, password } = this.state
 
-    this.props.login({ email, password })
-      .then((data) => {
-        if(data === undefined){
-          userService.getOneByEmail(email)
-            .then((user)=> {
-              if (user.data.length ){
-                this.setState({message:'password incorrect'})
-              } else {
-                this.setState({message:'email doesn\'t exist'})
-              }
-            })
-        }
+    authService.login({ email, password })
+    .then((user) => {
+      this.props.login({user, isLogged: true})
       })
-      .catch( (error) => console.log(error))
+      .catch(error => console.log(error))
   }
+
+      // .then((data) => {
+      //   if(data === undefined){
+      //     console.log('data', data);
+          
+      //     userService.getOneByEmail(email)
+      //       .then((user)=> {
+      //         if (user.data.length ){
+      //           this.setState({message:'password incorrect'})
+      //         } else {
+      //           this.setState({message:'email doesn\'t exist'})
+      //         }
+      //       })
+      //   }
+      // })
+      // .catch( (error) => console.log(error))
+  
 
   handleChange = (event) => {  
     const {name, value} = event.target;
@@ -92,4 +105,19 @@ class Login extends Component {
   }
 }
 
-export default withAuth(Login);
+// export default withAuth(Login);
+
+
+const mapStateToProps = state => {
+  return { state };
+};
+
+
+const mapDispatchToProps = dispatch => {
+  return {
+    login: (body) => dispatch(actions.login(body)),
+  };
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
